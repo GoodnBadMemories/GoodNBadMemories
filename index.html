@@ -3,560 +3,702 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Good Memories — underground streetwear inspired by nostalgia.">
-  <title>Good Memories® — You Had to Be There</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171717">
+  <meta name="description" content="GoodnBadMemories — Nothing stays the same, life moves on. Clothing inspired by the moments, emotions, and memories that shape us.">
+  <title>GoodnBadMemories — Life, Worn.</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
       --black: #171717;
-      --cream: #e8e0d3;
-      --brown: #66513f;
-      --muted: #b7aa99;
-      --line: #45403a;
+      --black-soft: #202020;
+      --orange: #f07824;
+      --grey: #929292;
+      --grey-light: #c8c5c0;
+      --brown: #76513b;
+      --paper: #f2eee8;
+      --line: rgba(242, 238, 232, .17);
+      --muted: #a6a29d;
+      --font-display: "Space Grotesk", Arial, sans-serif;
+      --font-body: "DM Sans", Arial, sans-serif;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 85px;
     }
 
     body {
       margin: 0;
       background: var(--black);
-      color: var(--cream);
-      font-family: Arial, Helvetica, sans-serif;
+      color: var(--paper);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
 
-    a { color: inherit; text-decoration: none; }
-    button { font: inherit; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ::selection {
+      background: var(--orange);
+      color: var(--black);
+    }
 
     .announcement {
       padding: 9px 16px;
-      text-align: center;
-      background: var(--cream);
+      background: var(--orange);
       color: var(--black);
+      text-align: center;
       font-size: 10px;
-      letter-spacing: 2px;
+      font-weight: 700;
+      letter-spacing: .19em;
+      text-transform: uppercase;
     }
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
+    .site-header {
+      width: min(1220px, calc(100% - 48px));
+      margin: 0 auto;
+      min-height: 88px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
-      padding: 20px 6%;
-      background: rgba(23, 23, 23, .96);
+      gap: 24px;
       border-bottom: 1px solid var(--line);
     }
 
-    .logo {
-      font-size: clamp(17px, 2vw, 25px);
-      font-weight: 900;
-      letter-spacing: -1.5px;
+    .wordmark {
+      font-family: var(--font-display);
+      font-size: clamp(18px, 2.3vw, 25px);
+      font-weight: 700;
+      letter-spacing: -.075em;
       white-space: nowrap;
+    }
+
+    .wordmark span {
+      color: var(--orange);
     }
 
     nav {
       display: flex;
-      gap: 22px;
-      font-size: 11px;
-      letter-spacing: 1.5px;
+      align-items: center;
+      gap: clamp(16px, 3vw, 36px);
     }
 
-    nav a:hover, footer a:hover { color: var(--muted); }
+    nav a {
+      color: var(--grey-light);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      transition: color .2s ease;
+    }
 
-    .bag-link { font-size: 12px; white-space: nowrap; }
+    nav a:hover,
+    nav a:focus-visible {
+      color: var(--orange);
+    }
 
     .hero {
-      min-height: 570px;
-      padding: 90px 8% 75px;
+      width: min(1220px, calc(100% - 48px));
+      margin: 0 auto;
+      min-height: min(760px, 83vh);
+      padding: 92px 0 76px;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      justify-content: center;
-      overflow: hidden;
+      justify-content: space-between;
       position: relative;
-      background:
-        radial-gradient(ellipse at 75% 35%, #66513f 0%, transparent 35%),
-        linear-gradient(120deg, #28231f, #171717 65%);
+      overflow: hidden;
     }
 
     .hero::after {
-      content: "GM";
+      content: "GBM";
       position: absolute;
-      right: -15px;
-      bottom: -100px;
-      font-weight: 900;
-      font-size: clamp(250px, 45vw, 650px);
-      letter-spacing: -0.12em;
-      line-height: 1;
-      color: rgba(232, 224, 211, .035);
+      z-index: 0;
+      right: -3%;
+      top: 8%;
+      color: rgba(240, 120, 36, .055);
+      font-family: var(--font-display);
+      font-size: clamp(200px, 36vw, 490px);
+      font-weight: 700;
+      line-height: .9;
+      letter-spacing: -.12em;
       pointer-events: none;
     }
 
     .eyebrow {
-      color: var(--muted);
-      font-size: 11px;
-      letter-spacing: 3px;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--grey);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .22em;
       text-transform: uppercase;
     }
 
-    h1 {
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 2px;
+      background: var(--orange);
+    }
+
+    .hero h1 {
       position: relative;
       z-index: 1;
-      max-width: 900px;
-      margin: 24px 0;
-      font-size: clamp(54px, 10vw, 125px);
-      line-height: .88;
+      max-width: 1050px;
+      margin: 48px 0 28px;
+      font-family: var(--font-display);
+      font-size: clamp(54px, 10.4vw, 140px);
+      font-weight: 700;
+      letter-spacing: -.09em;
+      line-height: .91;
+      text-transform: uppercase;
+    }
+
+    .hero h1 span {
+      color: var(--orange);
+      display: block;
+    }
+
+    .hero-bottom {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 32px;
+      margin-top: 42px;
+    }
+
+    .hero-copy {
+      max-width: 450px;
+      color: var(--grey-light);
+      font-size: 15px;
+    }
+
+    .hero-copy strong {
+      color: var(--paper);
+      font-weight: 600;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 48px;
+      padding: 0 20px;
+      border: 1px solid var(--orange);
+      background: var(--orange);
+      color: var(--black);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      transition: background .2s ease, color .2s ease, border-color .2s ease;
+    }
+
+    .button:hover {
+      background: transparent;
+      color: var(--orange);
+    }
+
+    .button.secondary {
+      border-color: var(--line);
+      background: transparent;
+      color: var(--paper);
+    }
+
+    .button.secondary:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+
+    .ticker {
+      overflow: hidden;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: #1d1d1d;
+    }
+
+    .ticker-inner {
+      width: max-content;
+      display: flex;
+      gap: 30px;
+      padding: 17px 0;
+      color: var(--grey-light);
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .ticker-inner span {
+      color: var(--orange);
+    }
+
+    .section {
+      width: min(1220px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 112px 0;
+    }
+
+    .section-label {
+      margin-bottom: 20px;
+      color: var(--orange);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+
+    .section h2 {
+      max-width: 850px;
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(38px, 6vw, 76px);
+      line-height: .99;
       letter-spacing: -.075em;
       text-transform: uppercase;
     }
 
-    .hero p {
-      position: relative;
-      z-index: 1;
-      max-width: 360px;
-      color: #c5b9aa;
-      line-height: 1.8;
+    .story-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(280px, .75fr);
+      gap: clamp(38px, 9vw, 130px);
+      margin-top: 54px;
+      align-items: start;
+    }
+
+    .story-lead {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(23px, 3vw, 36px);
+      line-height: 1.22;
+      letter-spacing: -.04em;
+    }
+
+    .story-lead span {
+      color: var(--orange);
+    }
+
+    .story-body {
+      color: var(--grey-light);
       font-size: 14px;
     }
 
-    .button {
-      display: inline-block;
-      position: relative;
-      z-index: 1;
-      margin-top: 20px;
-      padding: 15px 22px;
-      border: 1px solid var(--cream);
-      background: transparent;
-      color: var(--cream);
-      font-size: 11px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background .2s, color .2s;
+    .story-body p {
+      margin: 0 0 18px;
     }
 
-    .button:hover {
-      background: var(--cream);
+    .story-signoff {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--paper);
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -.02em;
+    }
+
+    .story-signoff span {
+      color: var(--orange);
+    }
+
+    .manifesto {
+      background: var(--paper);
       color: var(--black);
     }
 
-    section { padding: 85px 6%; }
+    .manifesto-inner {
+      width: min(1220px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 78px 0 86px;
+    }
 
-    .section-heading {
+    .manifesto .section-label {
+      color: var(--brown);
+    }
+
+    .manifesto h2 {
+      max-width: 1050px;
+    }
+
+    .manifesto h2 span {
+      color: var(--brown);
+    }
+
+    .manifesto-foot {
       display: flex;
       justify-content: space-between;
-      align-items: end;
-      gap: 15px;
-      margin-bottom: 30px;
-    }
-
-    h2 {
-      margin: 0;
-      font-size: clamp(27px, 5vw, 48px);
-      letter-spacing: -2px;
+      gap: 24px;
+      margin-top: 46px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(23, 23, 23, .2);
+      color: #5f5b56;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .15em;
       text-transform: uppercase;
     }
 
-    .section-heading p {
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr minmax(260px, .75fr);
+      gap: 50px;
+      align-items: end;
+      margin-top: 44px;
+    }
+
+    .contact-copy {
+      max-width: 470px;
+      color: var(--grey-light);
+      font-size: 14px;
+    }
+
+    .contact-card {
+      padding: 26px;
+      border: 1px solid var(--line);
+      background: var(--black-soft);
+    }
+
+    .contact-card-label {
+      margin-bottom: 14px;
+      color: var(--grey);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .email-link {
+      display: inline-block;
+      color: var(--paper);
+      font-family: var(--font-display);
+      font-size: clamp(15px, 2vw, 21px);
+      font-weight: 600;
+      letter-spacing: -.04em;
+      overflow-wrap: anywhere;
+      transition: color .2s ease;
+    }
+
+    .email-link:hover {
+      color: var(--orange);
+    }
+
+    .contact-note {
+      margin-top: 14px;
       color: var(--muted);
       font-size: 11px;
-    }
-
-    .products {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .product-art {
-      min-height: 300px;
-      display: grid;
-      place-items: center;
-      position: relative;
-      overflow: hidden;
-      background:
-        radial-gradient(ellipse at 50% 40%, #51473c, transparent 60%),
-        #262321;
-    }
-
-    .product-art::before {
-      content: "";
-      position: absolute;
-      width: 180px;
-      height: 225px;
-      background: linear-gradient(145deg, #383632, #111);
-      clip-path: polygon(25% 0, 40% 7%, 60% 7%, 75% 0,
-        100% 18%, 82% 40%, 73% 31%, 73% 100%,
-        27% 100%, 27% 31%, 18% 40%, 0 18%);
-      filter: drop-shadow(0 15px 15px #0008);
-    }
-
-    .product-art.art-2::before {
-      width: 190px;
-      height: 245px;
-      background: linear-gradient(130deg, #4c4944, #191817);
-    }
-
-    .product-art.art-3::before {
-      width: 185px;
-      height: 250px;
-      background: linear-gradient(120deg, #343434, #0b0b0b);
-      clip-path: polygon(15% 0, 85% 0, 100% 100%, 0 100%);
-    }
-
-    .art-mark {
-      position: relative;
-      z-index: 1;
-      margin-top: -20px;
-      color: #c6b8a6;
-      font-size: 22px;
-      font-weight: 900;
-      letter-spacing: -1px;
-    }
-
-    .product-info {
-      padding: 17px 0 10px;
-    }
-
-    .product-info h3 {
-      margin: 0 0 8px;
-      font-size: 14px;
-    }
-
-    .product-info p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .product-info .button {
-      margin-top: 14px;
-      padding: 11px 13px;
-      font-size: 10px;
-    }
-
-    .story {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 55px;
-      align-items: center;
-      background: #e8e0d3;
-      color: var(--black);
-    }
-
-    .story-art {
-      min-height: 350px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background:
-        repeating-linear-gradient(
-          0deg, transparent, transparent 3px,
-          #00000008 4px
-        ),
-        linear-gradient(135deg, #8c7861, #39312b);
-      text-align: center;
-    }
-
-    .story-art strong {
-      font-size: clamp(45px, 8vw, 100px);
-      letter-spacing: -8px;
-    }
-
-    .story-art span {
-      font-size: 10px;
-      letter-spacing: 4px;
-    }
-
-    .story .eyebrow { color: #66513f; }
-
-    .story-copy p {
-      max-width: 470px;
-      color: #51483e;
-      line-height: 1.9;
-      font-size: 14px;
-    }
-
-    .story-copy h2 { margin: 18px 0; }
-
-    .story .button {
-      border-color: var(--black);
-      color: var(--black);
-    }
-
-    .story .button:hover {
-      background: var(--black);
-      color: var(--cream);
-    }
-
-    .newsletter { text-align: center; }
-
-    .newsletter p {
-      max-width: 450px;
-      margin: 18px auto;
-      color: var(--muted);
-      line-height: 1.8;
-      font-size: 13px;
-    }
-
-    .newsletter form {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      max-width: 480px;
-      margin: 25px auto 0;
-    }
-
-    .newsletter input {
-      flex: 1;
-      min-width: 0;
-      padding: 14px;
-      border: 1px solid var(--line);
-      background: transparent;
-      color: var(--cream);
-    }
-
-    .newsletter button {
-      margin: 0;
     }
 
     footer {
-      padding: 35px 6%;
       border-top: 1px solid var(--line);
+      background: #111;
+    }
+
+    .footer-inner {
+      width: min(1220px, calc(100% - 48px));
+      min-height: 104px;
+      margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
+      gap: 24px;
     }
 
-    footer p, footer a {
-      color: var(--muted);
-      font-size: 11px;
+    .footer-tagline {
+      color: var(--grey);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
     }
 
-    #bag-message {
-      position: fixed;
-      right: 20px;
-      bottom: 20px;
-      z-index: 20;
-      max-width: calc(100vw - 40px);
-      padding: 16px 20px;
-      background: var(--cream);
-      color: var(--black);
-      font-size: 13px;
-      box-shadow: 0 5px 25px #0005;
+    .footer-small {
+      color: #77736e;
+      font-size: 10px;
+      text-align: right;
     }
 
-    [hidden] { display: none !important; }
+    @media (max-width: 720px) {
+      .site-header {
+        width: min(100% - 32px, 1220px);
+        min-height: 76px;
+        flex-wrap: wrap;
+        padding: 17px 0;
+      }
 
-    @media (max-width: 700px) {
-      header { padding: 17px 5%; flex-wrap: wrap; }
-      nav { order: 3; width: 100%; justify-content: space-between; gap: 10px; }
-      .hero { min-height: 500px; padding: 75px 6%; }
-      section { padding: 60px 5%; }
-      .products { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-      .product-art { min-height: 220px; }
-      .product-art::before { transform: scale(.8); }
-      .story { grid-template-columns: 1fr; gap: 30px; }
-      .story-art { min-height: 250px; }
-      .section-heading { align-items: flex-start; flex-direction: column; }
-      .newsletter form { flex-direction: column; }
-      .newsletter form .button { width: 100%; }
+      .wordmark {
+        font-size: 19px;
+      }
+
+      nav {
+        width: 100%;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      nav a {
+        font-size: 9px;
+        letter-spacing: .1em;
+      }
+
+      .hero,
+      .section,
+      .manifesto-inner,
+      .footer-inner {
+        width: min(100% - 32px, 1220px);
+      }
+
+      .hero {
+        min-height: 670px;
+        padding: 70px 0 54px;
+      }
+
+      .hero h1 {
+        margin-top: 48px;
+        font-size: clamp(50px, 13vw, 88px);
+      }
+
+      .hero-bottom {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .hero-copy {
+        font-size: 14px;
+      }
+
+      .section {
+        padding: 78px 0;
+      }
+
+      .story-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        margin-top: 36px;
+      }
+
+      .manifesto-inner {
+        padding: 66px 0;
+      }
+
+      .manifesto-foot {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .footer-inner {
+        align-items: start;
+        flex-direction: column;
+        justify-content: center;
+        padding: 25px 0;
+        gap: 8px;
+      }
+
+      .footer-small {
+        text-align: left;
+      }
+
+      .hero::after {
+        top: 20%;
+        right: -10%;
+        font-size: 62vw;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+      }
     }
   </style>
 </head>
 
 <body>
   <div class="announcement">
-    GOOD MEMORIES — A COLLECTION OF MOMENTS
+    Nothing stays the same. Life moves on.
   </div>
 
-  <header>
-    <a class="logo" href="#home">GOOD MEMORIES®</a>
+  <header class="site-header">
+    <a class="wordmark" href="#top" aria-label="GoodnBadMemories home">
+      GoodnBad<span>Memories</span>
+    </a>
 
     <nav aria-label="Main navigation">
-      <a href="#shop">SHOP</a>
-      <a href="#story">OUR STORY</a>
-      <a href="#contact">CONTACT</a>
+      <a href="#story">The Story</a>
+      <a href="#philosophy">The Philosophy</a>
+      <a href="#contact">Contact</a>
     </nav>
-
-    <a class="bag-link" href="#shop">
-      BAG (<span id="bag-count">0</span>)
-    </a>
   </header>
 
-  <main>
-    <section class="hero" id="home">
-      <span class="eyebrow">Independent clothing label · Vol. 001</span>
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="eyebrow">A clothing label shaped by life</div>
 
-      <h1>You had to<br>be there.</h1>
+      <h1 id="hero-title">
+        Nothing stays<br>
+        the same.
+        <span>Life moves on.</span>
+      </h1>
 
-      <p>
-        For the nights you still think about.
-        The people you still remember.
-        The moments you wish would last forever.
-      </p>
+      <div class="hero-bottom">
+        <p class="hero-copy">
+          <strong>Life, worn.</strong> Clothing inspired by the moments
+          that change us, the feelings we carry, and the memories that
+          stay long after the moment has passed.
+        </p>
 
-      <a class="button" href="#shop">Explore the archive ↗</a>
-    </section>
-
-    <section id="shop">
-      <div class="section-heading">
-        <div>
-          <span class="eyebrow">Chapter 001</span>
-          <h2>Latest memories.</h2>
+        <div class="hero-actions">
+          <a class="button" href="#story">Discover the story</a>
+          <a class="button secondary" href="#contact">Get in touch ↗</a>
         </div>
-        <p>THOUGHTFULLY DESIGNED. NEVER FORGOTTEN.</p>
-      </div>
-
-      <div class="products">
-        <article class="product">
-          <div class="product-art art-1">
-            <span class="art-mark">GM®</span>
-          </div>
-          <div class="product-info">
-            <h3>Memory Tee</h3>
-            <p>Sample price · $32</p>
-            <button class="button add-button"
-              data-name="Memory Tee" data-price="32">
-              Add to bag
-            </button>
-          </div>
-        </article>
-
-        <article class="product">
-          <div class="product-art art-2">
-            <span class="art-mark">AFTER HOURS</span>
-          </div>
-          <div class="product-info">
-            <h3>After Hours Hoodie</h3>
-            <p>Sample price · $68</p>
-            <button class="button add-button"
-              data-name="After Hours Hoodie" data-price="68">
-              Add to bag
-            </button>
-          </div>
-        </article>
-
-        <article class="product">
-          <div class="product-art art-3">
-            <span class="art-mark">ARCHIVE</span>
-          </div>
-          <div class="product-info">
-            <h3>Archive Denim</h3>
-            <p>Sample price · $74</p>
-            <button class="button add-button"
-              data-name="Archive Denim" data-price="74">
-              Add to bag
-            </button>
-          </div>
-        </article>
       </div>
     </section>
 
-    <section class="story" id="story">
-      <div class="story-art">
-        <strong>GM.</strong>
-        <span>MADE OF MOMENTS</span>
+    <div class="ticker" aria-label="Brand philosophy">
+      <div class="ticker-inner">
+        <span>GoodnBadMemories</span> · Life, worn. · Every moment leaves
+        something behind. · <span>GoodnBadMemories</span> · Life, worn. ·
+        Every moment leaves something behind. ·
       </div>
+    </div>
 
-      <div class="story-copy">
-        <span class="eyebrow">More than clothing</span>
-        <h2>Keep what matters.</h2>
-        <p>
-          Good Memories is inspired by the moments that stay with us
-          long after they've passed. The late nights, the familiar faces,
-          the places that changed us.
+    <section class="section" id="story" aria-labelledby="story-title">
+      <div class="section-label">01 / The story behind the label</div>
+
+      <h2 id="story-title">Life doesn't stop happening.</h2>
+
+      <div class="story-grid">
+        <p class="story-lead">
+          A new beginning. A final goodbye. A loss you never saw coming.
+          A job that changes everything. A home lost overnight. A marriage.
+          A birth. A moment of darkness.
+          <span>A reason to keep going.</span>
         </p>
-        <p>
-          We make clothing as a reminder that even ordinary moments
-          can become something worth remembering.
-        </p>
-        <a class="button" href="#contact">Stay connected ↗</a>
+
+        <div class="story-body">
+          <p>
+            Every day leaves something behind. Some moments we celebrate.
+            Others we struggle to make sense of. But every experience
+            becomes part of who we are.
+          </p>
+
+          <p><strong>GoodnBadMemories was created from that reality.</strong></p>
+
+          <p>
+            We translate the raw, unfiltered experiences of being alive
+            into clothing — pieces that represent the moments, emotions,
+            and memories that make us who we are.
+          </p>
+
+          <p>
+            Because life isn't always beautiful. It isn't always fair.
+            And it never stays the same.
+          </p>
+
+          <div class="story-signoff">
+            Wear what life leaves behind<span>.</span>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="newsletter" id="contact">
-      <span class="eyebrow">Don't miss the next chapter</span>
-      <h2>Stay in the loop.</h2>
-      <p>
-        New releases, upcoming collections, and more from
-        Good Memories.
-      </p>
+    <section class="manifesto" id="philosophy" aria-labelledby="manifesto-title">
+      <div class="manifesto-inner">
+        <div class="section-label">02 / The philosophy</div>
 
-      <form id="newsletter-form">
-        <input
-          id="email"
-          type="email"
-          placeholder="Your email address"
-          aria-label="Your email address"
-          required
-        >
-        <button class="button" type="submit">Join us ↗</button>
-      </form>
+        <h2 id="manifesto-title">
+          For the moments that make us.
+          <span>And the ones that remake us.</span>
+        </h2>
 
-      <p id="newsletter-message" aria-live="polite"></p>
+        <div class="manifesto-foot">
+          <span>GoodnBadMemories</span>
+          <span>Life, worn.</span>
+          <span>Est. in the moments</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact" aria-labelledby="contact-title">
+      <div class="section-label">03 / Contact</div>
+
+      <h2 id="contact-title">
+        Every good connection starts somewhere.
+      </h2>
+
+      <div class="contact-grid">
+        <p class="contact-copy">
+          For brand inquiries, creative collaborations, or questions about
+          GoodnBadMemories, reach out directly. We'll get back to you as
+          soon as we can.
+        </p>
+
+        <div class="contact-card">
+          <div class="contact-card-label">
+            General inquiries · Collaborations · Brand contact
+          </div>
+
+          <a class="email-link"
+             href="mailto:GoodnBadMemories001@gmail.com">
+            GoodnBadMemories001@gmail.com
+          </a>
+
+          <div class="contact-note">GoodnBadMemories — Life, worn.</div>
+        </div>
+      </div>
     </section>
   </main>
 
   <footer>
-    <a class="logo" href="#home">GOOD MEMORIES®</a>
-    <p>© <span id="year"></span> GOOD MEMORIES. ALL RIGHTS RESERVED.</p>
-    <a href="#home">BACK TO TOP ↑</a>
+    <div class="footer-inner">
+      <a class="wordmark" href="#top">
+        GoodnBad<span>Memories</span>
+      </a>
+
+      <div class="footer-tagline">
+        Nothing stays the same. Life moves on.
+      </div>
+
+      <div class="footer-small">
+        © <span id="year"></span> GoodnBadMemories. All moments leave a mark.
+      </div>
+    </div>
   </footer>
 
-  <div id="bag-message" role="status" aria-live="polite" hidden></div>
-
   <script>
-    const bag = [];
-    const bagCount = document.getElementById("bag-count");
-    const bagMessage = document.getElementById("bag-message");
-
-    document.querySelectorAll(".add-button").forEach((button) => {
-      button.addEventListener("click", () => {
-        const name = button.dataset.name;
-        const price = Number(button.dataset.price);
-
-        bag.push({ name, price });
-        bagCount.textContent = bag.length;
-
-        const total = bag.reduce((sum, item) => sum + item.price, 0);
-
-        bagMessage.textContent =
-          `${name} added. ${bag.length} item(s) · Demo total: $${total}.`;
-
-        bagMessage.hidden = false;
-      });
-    });
-
-    bagMessage.addEventListener("click", () => {
-      bagMessage.hidden = true;
-    });
-
     document.getElementById("year").textContent =
       new Date().getFullYear();
-
-    document.getElementById("newsletter-form").addEventListener(
-      "submit",
-      (event) => {
-        event.preventDefault();
-
-        document.getElementById("newsletter-message").textContent =
-          "Thanks for your interest! Email signup isn't connected yet.";
-
-        event.target.reset();
-      }
-    );
   </script>
 </body>
 </html>
+
