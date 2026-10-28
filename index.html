@@ -2,791 +2,710 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b0a09">
-  <meta name="description" content="GoodnBadMemories — clothing inspired by life, memories, and everything in between.">
-  <title>GoodnBadMemories — Life, Worn.</title>
-
-  <style>
-    :root {
-      --black: #0b0a09;
-      --cream: #eee0cc;
-      --orange: #ed5528;
-      --green: #75a96b;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 25px;
-    }
-
-    body {
-      background: var(--black);
-      color: var(--cream);
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    /* COLOR-CHANGING BRAND LOGO */
-
-    .brand {
-      display: inline-block;
-      font-family: Impact, "Arial Black", sans-serif;
-      font-size: clamp(17px, 2.3vw, 29px);
-      font-weight: 900;
-      letter-spacing: -1.4px;
-      text-transform: uppercase;
-      white-space: nowrap;
-      animation: brandColors 7s linear infinite;
-      transition: filter .2s;
-    }
-
-    .brand:hover {
-      filter: brightness(1.35);
-    }
-
-    @keyframes brandColors {
-      0%   { color: #ed493b; }
-      25%  { color: #fff0d9; }
-      50%  { color: #f18439; }
-      75%  { color: #69b86a; }
-      100% { color: #ed493b; }
-    }
-
-    /* TOP NAVIGATION */
-
-    .topbar {
-      position: absolute;
-      z-index: 20;
-      top: 0;
-      left: 0;
-      width: 100%;
-      min-height: 67px;
-      padding: 12px 3%;
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      gap: 15px;
-      background: rgba(5, 5, 5, .96);
-      border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      gap: clamp(12px, 3vw, 38px);
-    }
-
-    .nav a {
-      color: #d9cbb9;
-      font-size: 12px;
-      letter-spacing: .5px;
-      text-transform: uppercase;
-      transition: color .2s;
-    }
-
-    .nav a:hover,
-    .nav a.active {
-      color: var(--orange);
-    }
-
-    .nav-right {
-      justify-content: flex-end;
-    }
-
-    .topbar .brand {
-      text-align: center;
-    }
-
-    /* HERO IMAGE — EXACT UPLOADED FILENAME */
-
-    .hero {
-      position: relative;
-      min-height: 620px;
-      height: 100svh;
-      max-height: 900px;
-      overflow: hidden;
-      isolation: isolate;
-      background-color: #17100c;
-      background-image:
-        linear-gradient(
-          to bottom,
-          rgba(0,0,0,.04) 0%,
-          transparent 50%,
-          rgba(0,0,0,.18) 100%
-        ),
-        url("GoodnBadMemories_%20Nothing%20Stays%20the%20Same-1.png");
-      background-position: center, center center;
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
-
-    /* ANIMATED STATIC OVER THE WORDS ON THE TV */
-
-    .tv-static {
-      position: absolute;
-      z-index: 3;
-      left: 37.5%;
-      top: 29%;
-      width: 29%;
-      height: 29%;
-      overflow: hidden;
-      pointer-events: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      mix-blend-mode: screen;
-      opacity: .82;
-    }
-
-    .tv-static::before {
-      content: "";
-      position: absolute;
-      inset: -50%;
-      background-image:
-        repeating-radial-gradient(
-          circle at 40% 30%,
-          rgba(255,255,255,.85) 0 1px,
-          transparent 1px 3px,
-          rgba(0,0,0,.7) 3px 4px,
-          transparent 4px 6px
-        ),
-        repeating-linear-gradient(
-          0deg,
-          rgba(255,255,255,.28) 0 1px,
-          rgba(0,0,0,.2) 1px 3px,
-          transparent 3px 5px
-        );
-      animation: staticMove .16s steps(3) infinite;
-    }
-
-    .tv-static::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent 0 3px,
-        rgba(255,255,255,.15) 4px,
-        transparent 5px 7px
-      );
-      animation: scanlines .5s linear infinite;
-    }
-
-    .static-word {
-      position: relative;
-      z-index: 2;
-      color: #fff4e8;
-      font-family: Impact, "Arial Black", sans-serif;
-      font-size: clamp(17px, 2.8vw, 37px);
-      font-weight: 900;
-      letter-spacing: 3px;
-      text-shadow: 0 0 8px #fff, 2px 2px 3px #000;
-      animation: wordFlicker 1.8s steps(2) infinite;
-    }
-
-    @keyframes staticMove {
-      0%   { transform: translate(1%, -2%); }
-      25%  { transform: translate(-3%, 2%); }
-      50%  { transform: translate(2%, 4%); }
-      75%  { transform: translate(-1%, -3%); }
-      100% { transform: translate(3%, 1%); }
-    }
-
-    @keyframes scanlines {
-      from { background-position: 0 0; }
-      to   { background-position: 0 7px; }
-    }
-
-    @keyframes wordFlicker {
-      0%, 90%, 100% { opacity: 1; }
-      92% { opacity: .45; }
-      96% { opacity: .8; }
-    }
-
-    /* CLICKABLE VHS LABELS */
-
-    .vhs-links {
-      position: absolute;
-      z-index: 5;
-      left: 8.5%;
-      top: 55.3%;
-      width: 17%;
-      display: flex;
-      flex-direction: column;
-      gap: clamp(4px, .8vw, 10px);
-      transform: rotate(-1deg);
-    }
-
-    .vhs-link {
-      min-height: clamp(25px, 4.2vw, 43px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 3px 4px;
-      color: #17100b;
-      background: rgba(218,199,165,.94);
-      border: 1px solid rgba(48,31,20,.9);
-      font-family: "Courier New", monospace;
-      font-size: clamp(8px, 1.15vw, 15px);
-      font-weight: 900;
-      text-align: center;
-      text-transform: uppercase;
-      overflow-wrap: anywhere;
-      box-shadow: 0 2px 3px rgba(0,0,0,.6);
-      transition: background .2s, color .2s;
-    }
-
-    .vhs-link:hover {
-      color: #fff2df;
-      background: #a74d27;
-    }
-
-    .vhs-link:nth-child(2) { transform: rotate(-1deg); }
-    .vhs-link:nth-child(3) { transform: rotate(.6deg); }
-    .vhs-link:nth-child(4) { transform: rotate(-.5deg); }
-
-    /* SMALL HERO CAPTIONS */
-
-    .hero-caption {
-      position: absolute;
-      z-index: 4;
-      right: 3.5%;
-      bottom: 6%;
-      max-width: 190px;
-      font-family: "Courier New", monospace;
-      font-size: clamp(9px, 1vw, 12px);
-      line-height: 1.6;
-      letter-spacing: .8px;
-      text-transform: uppercase;
-      text-shadow: 0 2px 8px #000;
-      pointer-events: none;
-    }
-
-    .hero-caption span {
-      display: block;
-      margin-top: 9px;
-      padding-top: 8px;
-      color: #e8b58a;
-      border-top: 1px solid rgba(238,224,204,.7);
-    }
-
-    .scroll-label {
-      position: absolute;
-      z-index: 4;
-      left: 3%;
-      bottom: 4%;
-      color: #e9d9c3;
-      font-size: 11px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-    }
-
-    /* SECTION STYLING */
-
-    .section {
-      padding: 85px 6%;
-    }
-
-    .section-label {
-      color: var(--orange);
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-bottom: 13px;
-    }
-
-    .section h2 {
-      font-family: Impact, "Arial Black", sans-serif;
-      font-size: clamp(34px, 5vw, 60px);
-      font-weight: 900;
-      letter-spacing: -.5px;
-      text-transform: uppercase;
-      line-height: .98;
-    }
-
-    .section-intro {
-      max-width: 520px;
-      color: #b7aa9a;
-      font-size: 14px;
-      line-height: 1.8;
-      margin-top: 18px;
-    }
-
-    /* SHOP / NEW ARRIVALS */
-
-    .shop {
-      background: #15120f;
-    }
-
-    .shop-heading {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 25px;
-      margin-bottom: 35px;
-    }
-
-    .shop-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 17px;
-    }
-
-    .product {
-      border: 1px solid #3a2c20;
-      background: #201a15;
-      transition: transform .2s, border-color .2s;
-    }
-
-    .product:hover {
-      transform: translateY(-4px);
-      border-color: var(--orange);
-    }
-
-    .product-art {
-      aspect-ratio: 4 / 4.5;
-      display: grid;
-      place-items: center;
-      position: relative;
-      overflow: hidden;
-      background:
-        radial-gradient(ellipse at 50% 35%, #59402c, #292019 60%, #15120f);
-    }
-
-    .product-art::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent 0 3px,
-        rgba(255,255,255,.025) 4px
-      );
-    }
-
-    .product-art span {
-      font-size: clamp(55px, 8vw, 100px);
-      filter: grayscale(1);
-      opacity: .86;
-      transition: transform .25s;
-    }
-
-    .product:hover .product-art span {
-      transform: scale(1.08) rotate(-4deg);
-    }
-
-    .product-info {
-      padding: 18px;
-    }
-
-    .product-info h3 {
-      font-size: 13px;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-
-    .product-info p {
-      color: #aa9c8b;
-      font-size: 12px;
-      line-height: 1.6;
-    }
-
-    .coming-soon {
-      display: inline-block;
-      color: #ef9b64;
-      font-size: 9px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-top: 14px;
-    }
-
-    /* BRAND STORY */
-
-    .story {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 50px;
-      align-items: center;
-      background: #e9dfd1;
-      color: #1b1510;
-    }
-
-    .story .section-label {
-      color: #a74c25;
-    }
-
-    .story .section-intro {
-      color: #5b4c3f;
-    }
-
-    .story-art {
-      min-height: 310px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 30px;
-      color: #f3e6d3;
-      background:
-        linear-gradient(145deg, rgba(0,0,0,.05), rgba(0,0,0,.75)),
-        repeating-linear-gradient(135deg, #65442e 0 3px, #503522 4px 8px);
-    }
-
-    .story-art small {
-      font-family: "Courier New", monospace;
-      font-size: 10px;
-      letter-spacing: 2px;
-    }
-
-    .story-art strong {
-      font-family: Impact, "Arial Black", sans-serif;
-      font-size: clamp(45px, 6vw, 75px);
-      line-height: .9;
-      text-transform: uppercase;
-    }
-
-    /* CONTACT */
-
-    .contact {
-      text-align: center;
-      background: #0b0a09;
-    }
-
-    .contact .section-intro {
-      margin: 18px auto 28px;
-    }
-
-    .contact-button {
-      display: inline-block;
-      padding: 15px 23px;
-      background: var(--orange);
-      color: #130d09;
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      transition: background .2s;
-    }
-
-    .contact-button:hover {
-      background: var(--cream);
-    }
-
-    .email {
-      display: block;
-      margin-top: 20px;
-      color: #d7b18d;
-      font-size: 13px;
-      overflow-wrap: anywhere;
-    }
-
-    /* FOOTER */
-
-    footer {
-      padding: 25px 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      border-top: 1px solid #33271d;
-      color: #a69a8b;
-      font-size: 11px;
-    }
-
-    footer a:hover {
-      color: var(--orange);
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 20px;
-    }
-
-    /* MOBILE LAYOUT */
-
-    @media (max-width: 700px) {
-      .topbar {
-        min-height: 70px;
-        padding: 10px 12px;
-        grid-template-columns: 1fr auto 1fr;
-        gap: 5px;
-      }
-
-      .nav {
-        gap: 9px;
-      }
-
-      .nav a {
-        font-size: 9px;
-      }
-
-      .brand {
-        font-size: clamp(13px, 3.2vw, 21px);
-        letter-spacing: -.8px;
-      }
-
-      .hero {
-        min-height: 570px;
-        height: 83svh;
-        max-height: 780px;
-        background-position: center, center center;
-      }
-
-      .tv-static {
-        left: 37%;
-        top: 30%;
-        width: 30%;
-        height: 26%;
-      }
-
-      .static-word {
-        font-size: clamp(11px, 3vw, 20px);
-        letter-spacing: 1px;
-      }
-
-      .vhs-links {
-        left: 7%;
-        top: 55.5%;
-        width: 22%;
-        gap: 4px;
-      }
-
-      .vhs-link {
-        min-height: 27px;
-        font-size: clamp(7px, 1.9vw, 11px);
-        padding: 2px;
-      }
-
-      .hero-caption {
-        right: 3%;
-        bottom: 5%;
-        max-width: 125px;
-        font-size: 8px;
-      }
-
-      .scroll-label {
-        font-size: 9px;
-      }
-
-      .section {
-        padding: 62px 5%;
-      }
-
-      .shop-heading {
-        display: block;
-      }
-
-      .shop-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 10px;
-      }
-
-      .product-info {
-        padding: 12px;
-      }
-
-      .product-info h3 {
-        font-size: 11px;
-      }
-
-      .story {
-        grid-template-columns: 1fr;
-        gap: 30px;
-      }
-
-      .story-art {
-        min-height: 240px;
-      }
-
-      footer {
-        justify-content: center;
-        text-align: center;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b0a09">
+<meta name="description" content="GoodnBadMemories — Life, worn. Clothing inspired by life and memories.">
+<title>GoodnBadMemories — Life, Worn.</title>
+
+<style>
+:root {
+  --black: #0b0a09;
+  --cream: #eee0cc;
+  --orange: #ed5528;
+  --green: #75a96b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 20px;
+}
+
+body {
+  background: var(--black);
+  color: var(--cream);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ANIMATED BRAND LOGO */
+
+.brand {
+  display: inline-block;
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: clamp(17px, 2.3vw, 29px);
+  font-weight: 900;
+  letter-spacing: -1.4px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  animation: brandColors 7s linear infinite;
+}
+
+.brand:hover {
+  filter: brightness(1.3);
+}
+
+@keyframes brandColors {
+  0%   { color: #ed493b; }
+  25%  { color: #fff0d9; }
+  50%  { color: #f18439; }
+  75%  { color: #69b86a; }
+  100% { color: #ed493b; }
+}
+
+/* TOP NAVIGATION */
+
+.topbar {
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 68px;
+  padding: 12px 3%;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 15px;
+  background: rgba(5, 5, 5, .96);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 3vw, 38px);
+}
+
+.nav a {
+  color: #d9cbb9;
+  font-size: 12px;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  transition: color .2s;
+}
+
+.nav a:hover {
+  color: var(--orange);
+}
+
+.nav-right {
+  justify-content: flex-end;
+}
+
+.topbar .brand {
+  text-align: center;
+}
+
+/* CROPPED IMAGE BACKGROUND */
+
+.hero {
+  position: relative;
+  min-height: 620px;
+  height: 100svh;
+  max-height: 900px;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: #17100c;
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,.02),
+      transparent 55%,
+      rgba(0,0,0,.16)
+    ),
+    url("GoodnBadMemories_%20Nothing%20Stays%20the%20Same-1.png");
+  background-position: center, center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* TRANSPARENT, CLICKABLE VHS LABELS */
+
+.vhs-links {
+  position: absolute;
+  z-index: 5;
+  left: 8.5%;
+  top: 55.3%;
+  width: 17%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4px, .8vw, 10px);
+  transform: rotate(-1deg);
+}
+
+.vhs-link {
+  min-height: clamp(25px, 4.2vw, 43px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 4px;
+  color: #f5e6d1;
+  background: transparent;
+  border: 1px solid transparent;
+  font-family: "Courier New", monospace;
+  font-size: clamp(8px, 1.15vw, 15px);
+  font-weight: 900;
+  text-align: center;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+  text-shadow: 1px 1px 3px #000, 0 0 5px #000;
+  box-shadow: none;
+  transition: color .2s;
+}
+
+.vhs-link:hover,
+.vhs-link:focus-visible {
+  color: var(--orange);
+  background: transparent;
+  outline: none;
+}
+
+.vhs-link:nth-child(2) {
+  transform: rotate(-1deg);
+}
+
+.vhs-link:nth-child(3) {
+  transform: rotate(.6deg);
+}
+
+.vhs-link:nth-child(4) {
+  transform: rotate(-.5deg);
+}
+
+/* HERO CAPTIONS */
+
+.hero-caption {
+  position: absolute;
+  z-index: 4;
+  right: 3.5%;
+  bottom: 6%;
+  max-width: 190px;
+  font-family: "Courier New", monospace;
+  font-size: clamp(9px, 1vw, 12px);
+  line-height: 1.6;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  text-shadow: 0 2px 8px #000;
+  pointer-events: none;
+}
+
+.hero-caption span {
+  display: block;
+  margin-top: 9px;
+  padding-top: 8px;
+  color: #e8b58a;
+  border-top: 1px solid rgba(238,224,204,.7);
+}
+
+.scroll-label {
+  position: absolute;
+  z-index: 4;
+  left: 3%;
+  bottom: 4%;
+  color: #e9d9c3;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+/* GENERAL SECTIONS */
+
+.section {
+  padding: 85px 6%;
+}
+
+.section-label {
+  color: var(--orange);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 13px;
+}
+
+.section h2 {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: clamp(34px, 5vw, 60px);
+  font-weight: 900;
+  letter-spacing: -.5px;
+  text-transform: uppercase;
+  line-height: .98;
+}
+
+.section-intro {
+  max-width: 520px;
+  color: #b7aa9a;
+  font-size: 14px;
+  line-height: 1.8;
+  margin-top: 18px;
+}
+
+/* SHOP */
+
+.shop {
+  background: #15120f;
+}
+
+.shop-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 25px;
+  margin-bottom: 35px;
+}
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 17px;
+}
+
+.product {
+  border: 1px solid #3a2c20;
+  background: #201a15;
+  transition: transform .2s, border-color .2s;
+}
+
+.product:hover {
+  transform: translateY(-4px);
+  border-color: var(--orange);
+}
+
+.product-art {
+  aspect-ratio: 4 / 4.5;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% 35%, #59402c, #292019 60%, #15120f);
+}
+
+.product-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0 3px,
+    rgba(255,255,255,.025) 4px
+  );
+}
+
+.product-art span {
+  font-size: clamp(55px, 8vw, 100px);
+  filter: grayscale(1);
+  opacity: .86;
+  transition: transform .25s;
+}
+
+.product:hover .product-art span {
+  transform: scale(1.08) rotate(-4deg);
+}
+
+.product-info {
+  padding: 18px;
+}
+
+.product-info h3 {
+  font-size: 13px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.product-info p {
+  color: #aa9c8b;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.coming-soon {
+  display: inline-block;
+  color: #ef9b64;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 14px;
+}
+
+/* BRAND STORY */
+
+.story {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+  background: #e9dfd1;
+  color: #1b1510;
+}
+
+.story .section-label {
+  color: #a74c25;
+}
+
+.story .section-intro {
+  color: #5b4c3f;
+}
+
+.story-art {
+  min-height: 310px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px;
+  color: #f3e6d3;
+  background:
+    linear-gradient(145deg, rgba(0,0,0,.05), rgba(0,0,0,.75)),
+    repeating-linear-gradient(135deg, #65442e 0 3px, #503522 4px 8px);
+}
+
+.story-art small {
+  font-family: "Courier New", monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.story-art strong {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: clamp(45px, 6vw, 75px);
+  line-height: .9;
+  text-transform: uppercase;
+}
+
+/* CONTACT */
+
+.contact {
+  text-align: center;
+  background: #0b0a09;
+}
+
+.contact .section-intro {
+  margin: 18px auto 28px;
+}
+
+.contact-button {
+  display: inline-block;
+  padding: 15px 23px;
+  background: var(--orange);
+  color: #130d09;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: background .2s;
+}
+
+.contact-button:hover {
+  background: var(--cream);
+}
+
+.email {
+  display: block;
+  margin-top: 20px;
+  color: #d7b18d;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+/* FOOTER */
+
+footer {
+  padding: 25px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  border-top: 1px solid #33271d;
+  color: #a69a8b;
+  font-size: 11px;
+}
+
+footer a:hover {
+  color: var(--orange);
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+  .topbar {
+    min-height: 70px;
+    padding: 10px 12px;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 5px;
+  }
+
+  .nav {
+    gap: 9px;
+  }
+
+  .nav a {
+    font-size: 9px;
+  }
+
+  .brand {
+    font-size: clamp(13px, 3.2vw, 21px);
+    letter-spacing: -.8px;
+  }
+
+  .hero {
+    min-height: 570px;
+    height: 83svh;
+    max-height: 780px;
+    background-position: center, center center;
+  }
+
+  .vhs-links {
+    left: 7%;
+    top: 55.5%;
+    width: 22%;
+    gap: 4px;
+  }
+
+  .vhs-link {
+    min-height: 27px;
+    font-size: clamp(7px, 1.9vw, 11px);
+    padding: 2px;
+  }
+
+  .hero-caption {
+    right: 3%;
+    bottom: 5%;
+    max-width: 125px;
+    font-size: 8px;
+  }
+
+  .scroll-label {
+    font-size: 9px;
+  }
+
+  .section {
+    padding: 62px 5%;
+  }
+
+  .shop-heading {
+    display: block;
+  }
+
+  .shop-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .product-info {
+    padding: 12px;
+  }
+
+  .product-info h3 {
+    font-size: 11px;
+  }
+
+  .story {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .story-art {
+    min-height: 240px;
+  }
+
+  footer {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <header class="topbar">
-    <nav class="nav" aria-label="Main navigation">
-      <a class="active" href="#home">Home</a>
-      <a href="#shop">Shop</a>
+<header class="topbar">
+  <nav class="nav" aria-label="Main navigation">
+    <a href="#home">Home</a>
+    <a href="#shop">Shop</a>
+  </nav>
+
+  <a class="brand" href="#home" aria-label="GoodnBadMemories home">
+    GoodnBadMemories
+  </a>
+
+  <nav class="nav nav-right" aria-label="More navigation">
+    <a href="#story">Story</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <!-- BACKGROUND IMAGE WITH CLICKABLE OVERLAYS -->
+  <section class="hero" id="home" aria-label="GoodnBadMemories homepage">
+
+    <nav class="vhs-links" aria-label="VHS links">
+      <a class="vhs-link" href="#shop">New Arrivals</a>
+      <a class="vhs-link" href="https://www.instagram.com/"
+         target="_blank" rel="noopener noreferrer">Instagram ↗</a>
+      <a class="vhs-link" href="https://x.com/"
+         target="_blank" rel="noopener noreferrer">X ↗</a>
+      <a class="vhs-link" href="https://www.tiktok.com/"
+         target="_blank" rel="noopener noreferrer">TikTok ↗</a>
     </nav>
 
-    <a class="brand" href="#home" aria-label="GoodnBadMemories home">
-      GoodnBadMemories
-    </a>
+    <div class="scroll-label">↓ Scroll to explore</div>
 
-    <nav class="nav nav-right" aria-label="More navigation">
-      <a href="#story">Story</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+    <div class="hero-caption">
+      Clothes for the moments that change you.
+      <span>GoodnBadMemories®</span>
+    </div>
+  </section>
 
-  <main>
-    <section class="hero" id="home" aria-label="GoodnBadMemories homepage">
-
-      <div class="tv-static" aria-hidden="true">
-        <span class="static-word">STATIC</span>
-      </div>
-
-      <nav class="vhs-links" aria-label="VHS links">
-        <a class="vhs-link" href="#shop">New Arrivals</a>
-        <a class="vhs-link" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
-        <a class="vhs-link" href="https://x.com/" target="_blank" rel="noopener noreferrer">X ↗</a>
-        <a class="vhs-link" href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer">TikTok ↗</a>
-      </nav>
-
-      <div class="scroll-label">↓ Scroll to explore</div>
-
-      <div class="hero-caption">
-        Clothes for the moments that change you.
-        <span>GoodnBadMemories®</span>
-      </div>
-    </section>
-
-    <section class="section shop" id="shop">
-      <div class="shop-heading">
-        <div>
-          <div class="section-label">Good times. Bad times. All yours.</div>
-          <h2>New arrivals.</h2>
-        </div>
-        <p class="section-intro">
-          Pieces inspired by memories, moments, and everything life leaves behind.
-          These are collection previews while products are being developed.
-        </p>
-      </div>
-
-      <div class="shop-grid">
-        <article class="product">
-          <div class="product-art"><span>🎒</span></div>
-          <div class="product-info">
-            <h3>Onyx Backpack</h3>
-            <p>Carry your story with you.</p>
-            <span class="coming-soon">Coming soon</span>
-          </div>
-        </article>
-
-        <article class="product">
-          <div class="product-art"><span>♟</span></div>
-          <div class="product-info">
-            <h3>Memory Hoodie</h3>
-            <p>Comfort with a past.</p>
-            <span class="coming-soon">Coming soon</span>
-          </div>
-        </article>
-
-        <article class="product">
-          <div class="product-art"><span>👖</span></div>
-          <div class="product-info">
-            <h3>After Hours Denim</h3>
-            <p>Worn in, never ordinary.</p>
-            <span class="coming-soon">Coming soon</span>
-          </div>
-        </article>
-
-        <article class="product">
-          <div class="product-art"><span>〰</span></div>
-          <div class="product-info">
-            <h3>Everyday Belt</h3>
-            <p>It's in the details.</p>
-            <span class="coming-soon">Coming soon</span>
-          </div>
-        </article>
-
-        <article class="product">
-          <div class="product-art"><span>◉</span></div>
-          <div class="product-info">
-            <h3>Blurred Vision Glasses</h3>
-            <p>See things differently.</p>
-            <span class="coming-soon">Coming soon</span>
-          </div>
-        </article>
-
-        <article class="product">
-          <div class="product-art"><span>♧</span></div>
-          <div class="product-info">
-            <h3>Old Days Beanie</h3>
-            <p>A familiar feeling, a new chapter.</p>
-            <span class="coming-soon">Coming soon</span>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section story" id="story">
+  <!-- SHOP -->
+  <section class="section shop" id="shop">
+    <div class="shop-heading">
       <div>
-        <div class="section-label">Behind the name</div>
-        <h2>Nothing stays the same.<br>Life moves on.</h2>
-        <p class="section-intro">
-          GoodnBadMemories is inspired by the moments that make us who we are.
-          The people we meet, the mistakes we make, the places we leave, and the
-          memories that stay with us. Life isn't only good or bad. It's all part
-          of the story — and every chapter leaves something behind.
-        </p>
+        <div class="section-label">Good times. Bad times. All yours.</div>
+        <h2>New arrivals.</h2>
       </div>
-
-      <div class="story-art">
-        <small>GOODNBADMEMORIES® / LIFE, WORN.</small>
-        <strong>Every<br>memory<br>means<br>something.</strong>
-        <small>Keep moving. Keep the memories.</small>
-      </div>
-    </section>
-
-    <section class="section contact" id="contact">
-      <div class="section-label">Get in touch</div>
-      <h2>Let's connect.</h2>
       <p class="section-intro">
-        Questions, collaborations, or just want to reach out?
-        Send a message to the brand.
+        Pieces inspired by memories, moments, and everything life leaves behind.
+        These are collection previews while products are being developed.
       </p>
-      <a class="contact-button" href="mailto:GoodnBadMemories001@gmail.com">
-        Contact GoodnBadMemories ↗
-      </a>
-      <a class="email" href="mailto:GoodnBadMemories001@gmail.com">
-        GoodnBadMemories001@gmail.com
-      </a>
-    </section>
-  </main>
+    </div>
 
-  <footer>
-    <a class="brand" href="#home">GoodnBadMemories.</a>
-    <span>Life, worn. © <span id="year"></span></span>
-    <nav class="footer-links" aria-label="Footer navigation">
-      <a href="#home">Home</a>
-      <a href="#shop">Shop</a>
-      <a href="#story">Story</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </footer>
+    <div class="shop-grid">
+      <article class="product">
+        <div class="product-art"><span>🎒</span></div>
+        <div class="product-info">
+          <h3>Onyx Backpack</h3>
+          <p>Carry your story with you.</p>
+          <span class="coming-soon">Coming soon</span>
+        </div>
+      </article>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+      <article class="product">
+        <div class="product-art"><span>♟</span></div>
+        <div class="product-info">
+          <h3>Memory Hoodie</h3>
+          <p>Comfort with a past.</p>
+          <span class="coming-soon">Coming soon</span>
+        </div>
+      </article>
+
+      <article class="product">
+        <div class="product-art"><span>👖</span></div>
+        <div class="product-info">
+          <h3>After Hours Denim</h3>
+          <p>Worn in, never ordinary.</p>
+          <span class="coming-soon">Coming soon</span>
+        </div>
+      </article>
+
+      <article class="product">
+        <div class="product-art"><span>〰</span></div>
+        <div class="product-info">
+          <h3>Everyday Belt</h3>
+          <p>It's in the details.</p>
+          <span class="coming-soon">Coming soon</span>
+        </div>
+      </article>
+
+      <article class="product">
+        <div class="product-art"><span>◉</span></div>
+        <div class="product-info">
+          <h3>Blurred Vision Glasses</h3>
+          <p>See things differently.</p>
+          <span class="coming-soon">Coming soon</span>
+        </div>
+      </article>
+
+      <article class="product">
+        <div class="product-art"><span>♧</span></div>
+        <div class="product-info">
+          <h3>Old Days Beanie</h3>
+          <p>A familiar feeling, a new chapter.</p>
+          <span class="coming-soon">Coming soon</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section class="section story" id="story">
+    <div>
+      <div class="section-label">Behind the name</div>
+      <h2>Nothing stays the same.<br>Life moves on.</h2>
+      <p class="section-intro">
+        GoodnBadMemories is inspired by the moments that make us who we are.
+        The people we meet, the mistakes we make, the places we leave, and the
+        memories that stay with us. Life isn't only good or bad. It's all part
+        of the story — and every chapter leaves something behind.
+      </p>
+    </div>
+
+    <div class="story-art">
+      <small>GOODNBADMEMORIES® / LIFE, WORN.</small>
+      <strong>Every<br>memory<br>means<br>something.</strong>
+      <small>Keep moving. Keep the memories.</small>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section contact" id="contact">
+    <div class="section-label">Get in touch</div>
+    <h2>Let's connect.</h2>
+    <p class="section-intro">
+      Questions, collaborations, or just want to reach out?
+      Send a message to the brand.
+    </p>
+    <a class="contact-button" href="mailto:GoodnBadMemories001@gmail.com">
+      Contact GoodnBadMemories ↗
+    </a>
+    <a class="email" href="mailto:GoodnBadMemories001@gmail.com">
+      GoodnBadMemories001@gmail.com
+    </a>
+  </section>
+</main>
+
+<footer>
+  <a class="brand" href="#home">GoodnBadMemories.</a>
+  <span>Life, worn. © <span id="year"></span></span>
+  <nav class="footer-links" aria-label="Footer navigation">
+    <a href="#home">Home</a>
+    <a href="#shop">Shop</a>
+    <a href="#story">Story</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 
 </body>
 </html>
