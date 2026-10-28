@@ -107,7 +107,7 @@ a {
   text-align: center;
 }
 
-/* CROPPED IMAGE BACKGROUND */
+/* HERO BACKGROUND IMAGE */
 
 .hero {
   position: relative;
@@ -130,60 +130,58 @@ a {
   background-repeat: no-repeat;
 }
 
-/* TRANSPARENT, CLICKABLE VHS LABELS */
+/*
+  INVISIBLE VHS CLICK ZONES
+
+  Four equal transparent areas cover the four tape labels.
+  No text, buttons, borders, or overlays are drawn on the image.
+*/
 
 .vhs-links {
   position: absolute;
   z-index: 5;
-  left: 8.5%;
-  top: 55.3%;
-  width: 17%;
+  left: 7.2%;
+  top: 52.5%;
+  width: 20%;
+  height: 23%;
   display: flex;
   flex-direction: column;
-  gap: clamp(4px, .8vw, 10px);
+  justify-content: space-between;
+  gap: 0;
   transform: rotate(-1deg);
 }
 
 .vhs-link {
-  min-height: clamp(25px, 4.2vw, 43px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 3px 4px;
-  color: #f5e6d1;
+  display: block;
+  flex: 1 1 25%;
+  min-height: 0;
+  width: 100%;
+  padding: 0;
+  color: transparent;
   background: transparent;
-  border: 1px solid transparent;
-  font-family: "Courier New", monospace;
-  font-size: clamp(8px, 1.15vw, 15px);
-  font-weight: 900;
-  text-align: center;
-  text-transform: uppercase;
-  overflow-wrap: anywhere;
-  text-shadow: 1px 1px 3px #000, 0 0 5px #000;
+  border: 0;
+  font-size: 0;
+  text-shadow: none;
   box-shadow: none;
-  transition: color .2s;
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .vhs-link:hover,
 .vhs-link:focus-visible {
-  color: var(--orange);
+  color: transparent;
   background: transparent;
   outline: none;
 }
 
-.vhs-link:nth-child(2) {
-  transform: rotate(-1deg);
-}
-
-.vhs-link:nth-child(3) {
-  transform: rotate(.6deg);
-}
-
+.vhs-link:nth-child(2),
+.vhs-link:nth-child(3),
 .vhs-link:nth-child(4) {
-  transform: rotate(-.5deg);
+  transform: none;
 }
 
-/* HERO CAPTIONS */
+/* HERO CAPTIONS — NOT CLICKABLE */
 
 .hero-caption {
   position: absolute;
@@ -217,6 +215,7 @@ a {
   font-size: 11px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
+  pointer-events: none;
 }
 
 /* GENERAL SECTIONS */
@@ -474,16 +473,17 @@ footer a:hover {
   }
 
   .vhs-links {
-    left: 7%;
-    top: 55.5%;
-    width: 22%;
-    gap: 4px;
+    left: 6%;
+    top: 52.5%;
+    width: 24%;
+    height: 24%;
+    gap: 0;
   }
 
   .vhs-link {
-    min-height: 27px;
-    font-size: clamp(7px, 1.9vw, 11px);
-    padding: 2px;
+    min-height: 0;
+    padding: 0;
+    font-size: 0;
   }
 
   .hero-caption {
@@ -564,17 +564,14 @@ footer a:hover {
 </header>
 
 <main>
-  <!-- BACKGROUND IMAGE WITH CLICKABLE OVERLAYS -->
   <section class="hero" id="home" aria-label="GoodnBadMemories homepage">
 
-    <nav class="vhs-links" aria-label="VHS links">
-      <a class="vhs-link" href="#shop">New Arrivals</a>
-      <a class="vhs-link" href="https://www.instagram.com/"
-         target="_blank" rel="noopener noreferrer">Instagram ↗</a>
-      <a class="vhs-link" href="https://x.com/"
-         target="_blank" rel="noopener noreferrer">X ↗</a>
-      <a class="vhs-link" href="https://www.tiktok.com/"
-         target="_blank" rel="noopener noreferrer">TikTok ↗</a>
+    <!-- Invisible links positioned over the four VHS tapes -->
+    <nav class="vhs-links" aria-label="VHS tape navigation">
+      <a class="vhs-link" href="#shop" aria-label="Shop"></a>
+      <a class="vhs-link" href="#story" aria-label="Story"></a>
+      <a class="vhs-link" href="#contact" aria-label="Contact"></a>
+      <a class="vhs-link" href="#shop" aria-label="New Arrivals"></a>
     </nav>
 
     <div class="scroll-label">↓ Scroll to explore</div>
@@ -709,4 +706,3 @@ footer a:hover {
 
 </body>
 </html>
-
