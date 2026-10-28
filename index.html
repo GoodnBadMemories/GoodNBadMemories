@@ -2,1018 +2,1354 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b0b0a">
-  <meta name="description" content="GoodnBadMemories. Nothing stays the same. Life moves on. Life-inspired underground streetwear.">
-  <title>GoodnBadMemories — Life, Worn.</title>
-
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Space+Grotesk:wght@400;500;600;700&display=swap');
-
-    :root {
-      --black: #0b0b0a;
-      --panel: #151513;
-      --cream: #e9d8bb;
-      --cream-light: #f4e9d7;
-      --orange: #ed5b28;
-      --muted: #a99e8d;
-      --line: rgba(233, 216, 187, .28);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      color: var(--cream-light);
-      background: var(--black);
-      font-family: "Space Grotesk", Arial, sans-serif;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button {
-      font: inherit;
-    }
-
-    ::selection {
-      color: var(--black);
-      background: var(--orange);
-    }
-
-    /* HEADER */
-
-    .topbar {
-      min-height: 68px;
-      padding: 14px 3.5%;
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      gap: 20px;
-      background: rgba(10, 10, 9, .97);
-      border-bottom: 1px solid rgba(233, 216, 187, .1);
-      position: relative;
-      z-index: 5;
-    }
-
-    .nav {
-      display: flex;
-      gap: clamp(12px, 2.5vw, 30px);
-      align-items: center;
-    }
-
-    .nav a {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: .12em;
-      color: var(--cream);
-      transition: color .2s;
-    }
-
-    .nav a:hover {
-      color: var(--orange);
-    }
-
-    .brand {
-      font-family: "Special Elite", Georgia, serif;
-      font-size: clamp(17px, 2.1vw, 25px);
-      font-weight: bold;
-      letter-spacing: -.08em;
-      white-space: nowrap;
-      text-align: center;
-      text-shadow: 0 0 12px rgba(233, 216, 187, .12);
-    }
-
-    .brand .changing {
-      animation: colorCycle 3.2s infinite steps(1, end);
-    }
-
-    .brand .white {
-      color: #f5eee2;
-    }
-
-    .brand .orange {
-      color: var(--orange);
-    }
-
-    @keyframes colorCycle {
-      0%, 49.9% {
-        color: #f0443e;
-      }
-      50%, 100% {
-        color: #50b66a;
-      }
-    }
-
-    .nav-right {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .sound-toggle {
-      width: 44px;
-      height: 34px;
-      border: 0;
-      background: transparent;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 3px;
-      cursor: pointer;
-    }
-
-    .sound-toggle span {
-      display: block;
-      width: 4px;
-      border-radius: 3px;
-      background: var(--orange);
-      animation: equalizer .8s infinite alternate ease-in-out;
-    }
-
-    .sound-toggle span:nth-child(1) { height: 10px; }
-    .sound-toggle span:nth-child(2) { height: 22px; animation-delay: -.4s; }
-    .sound-toggle span:nth-child(3) { height: 15px; animation-delay: -.2s; }
-    .sound-toggle span:nth-child(4) { height: 24px; background: #62a96e; animation-delay: -.5s; }
-
-    @keyframes equalizer {
-      to { transform: scaleY(.45); }
-    }
-
-    /* HERO ROOM */
-
-    .hero {
-      min-height: 640px;
-      height: min(760px, 80vw);
-      max-height: 850px;
-      position: relative;
-      overflow: hidden;
-      isolation: isolate;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 4%;
-      background:
-        radial-gradient(ellipse at 32% 54%, rgba(143, 76, 35, .27), transparent 38%),
-        radial-gradient(ellipse at 88% 32%, rgba(116, 76, 45, .19), transparent 30%),
-        linear-gradient(100deg, #38271c 0%, #1d1712 28%, #151310 60%, #090909 100%);
-    }
-
-    /* Room details */
-    .room-wall {
-      position: absolute;
-      inset: 0;
-      z-index: -2;
-      opacity: .65;
-      background:
-        linear-gradient(90deg, transparent 10%, rgba(0,0,0,.5) 10.4%, transparent 11%),
-        linear-gradient(90deg, transparent 72%, rgba(0,0,0,.55) 72.5%, transparent 73%),
-        repeating-linear-gradient(0deg, transparent 0 125px, rgba(0,0,0,.14) 126px 130px),
-        linear-gradient(180deg, #211a14, #38271b 70%, #17110d);
-    }
-
-    .room-light {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 35%;
-      height: 65%;
-      background: linear-gradient(125deg, rgba(255, 181, 104, .22), transparent 65%);
-      filter: blur(10px);
-      pointer-events: none;
-    }
-
-    .room-poster {
-      position: absolute;
-      top: 9%;
-      right: 3%;
-      width: 22%;
-      height: 34%;
-      padding: 12px;
-      border: 7px solid #20170f;
-      background:
-        repeating-linear-gradient(135deg, transparent 0 14px, rgba(230, 95, 40, .18) 15px 18px),
-        #211a14;
-      transform: rotate(3deg);
-      color: rgba(233, 216, 187, .42);
-      font-family: "Special Elite", Georgia, serif;
-      font-size: clamp(10px, 1.5vw, 18px);
-      overflow: hidden;
-    }
-
-    .room-poster strong {
-      display: block;
-      margin-top: 18px;
-      font-size: 1.6em;
-      line-height: 1.1;
-    }
-
-    .room-floor {
-      position: absolute;
-      z-index: -1;
-      left: -5%;
-      bottom: -2%;
-      width: 110%;
-      height: 26%;
-      transform: perspective(260px) rotateX(8deg);
-      transform-origin: top;
-      background:
-        repeating-linear-gradient(90deg, transparent 0 140px, rgba(0,0,0,.22) 141px 145px),
-        repeating-linear-gradient(0deg, #19120d 0 30px, #302016 31px 34px);
-      border-top: 5px solid #110d09;
-    }
-
-    .hero-caption {
-      position: absolute;
-      bottom: 7%;
-      right: 4%;
-      z-index: 2;
-      width: 205px;
-      font-size: 10px;
-      line-height: 1.8;
-      text-transform: uppercase;
-      letter-spacing: .12em;
-      color: var(--cream);
-    }
-
-    .hero-caption strong {
-      display: block;
-      padding-bottom: 9px;
-      border-bottom: 1px solid var(--cream);
-      font-weight: 500;
-    }
-
-    .scroll-note {
-      position: absolute;
-      bottom: 7%;
-      left: 4%;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: .17em;
-      color: var(--cream);
-    }
-
-    .scroll-note::before {
-      content: "";
-      display: inline-block;
-      width: 22px;
-      height: 1px;
-      margin: 0 10px 3px 0;
-      background: var(--orange);
-    }
-
-    /* OLD WOODEN TELEVISION */
-
-    .tv-wrap {
-      position: relative;
-      width: min(720px, 76%);
-      transform: rotate(-1deg);
-      filter: drop-shadow(18px 28px 22px rgba(0,0,0,.55));
-      animation: tvSettle 7s ease-in-out infinite;
-    }
-
-    @keyframes tvSettle {
-      0%, 100% { transform: rotate(-1deg) translateY(0); }
-      50% { transform: rotate(-.7deg) translateY(-3px); }
-    }
-
-    .tv {
-      position: relative;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 105px;
-      gap: 12px;
-      padding: 19px 17px 20px 20px;
-      border-radius: 13px 17px 15px 11px;
-      border: 3px solid #4b2c19;
-      background:
-        repeating-linear-gradient(2deg, transparent 0 8px, rgba(255,195,112,.045) 9px 11px),
-        linear-gradient(110deg, #7b4c2c 0%, #432817 17%, #714323 36%, #392316 62%, #5c371f 85%, #28180f 100%);
-      box-shadow:
-        inset 0 0 0 3px rgba(0,0,0,.55),
-        inset 0 0 14px 4px rgba(0,0,0,.55),
-        0 8px 0 #1a100a;
-    }
-
-    /* Worn corners and scratches */
-    .tv::before {
-      content: "";
-      position: absolute;
-      inset: 4px;
-      z-index: 3;
-      pointer-events: none;
-      border-radius: 9px;
-      background:
-        radial-gradient(ellipse at 0 0, rgba(226,177,116,.55), transparent 10%),
-        radial-gradient(ellipse at 100% 100%, rgba(0,0,0,.6), transparent 13%),
-        repeating-linear-gradient(112deg, transparent 0 53px, rgba(10,5,2,.25) 54px 56px, transparent 57px 91px);
-      mix-blend-mode: screen;
-      opacity: .7;
-    }
-
-    .tv-screen-frame {
-      min-width: 0;
-      padding: 12px;
-      border-radius: 18px 25px 23px 16px;
-      background: linear-gradient(140deg, #1b120d, #55351f 35%, #120d09);
-      box-shadow: inset 0 0 0 2px rgba(0,0,0,.7);
-    }
-
-    .tv-screen {
-      position: relative;
-      min-height: 285px;
-      height: 100%;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      isolation: isolate;
-      border-radius: 48% 45% 43% 46% / 8% 8% 9% 9%;
-      background: #252321;
-      box-shadow:
-        inset 0 0 22px 7px #000,
-        0 0 0 3px #100d0a;
-    }
-
-    /* Actual animated static: SVG noise moves over the screen */
-    .tv-screen::before {
-      content: "";
-      position: absolute;
-      z-index: -1;
-      inset: -30%;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E");
-      background-size: 190px 190px;
-      opacity: .63;
-      mix-blend-mode: screen;
-      animation: tvStatic .22s steps(3, end) infinite;
-    }
-
-    @keyframes tvStatic {
-      0% { transform: translate(0, 0); }
-      25% { transform: translate(-5%, 2%); }
-      50% { transform: translate(3%, -4%); }
-      75% { transform: translate(4%, 5%); }
-      100% { transform: translate(-2%, -3%); }
-    }
-
-    .tv-screen::after {
-      content: "";
-      position: absolute;
-      z-index: 1;
-      inset: 0;
-      pointer-events: none;
-      background:
-        repeating-linear-gradient(0deg, rgba(0,0,0,.28) 0 2px, transparent 2px 4px),
-        linear-gradient(90deg, rgba(0,0,0,.45), transparent 20% 78%, rgba(0,0,0,.45)),
-        radial-gradient(ellipse, transparent 43%, rgba(0,0,0,.55) 100%);
-      animation: tvFlicker 2.6s infinite;
-    }
-
-    @keyframes tvFlicker {
-      0%, 18%, 20%, 55%, 57%, 100% { opacity: .8; }
-      19%, 56% { opacity: .45; }
-      72% { opacity: .92; }
-    }
-
-    .screen-copy {
-      z-index: 2;
-      padding: 20px;
-      text-align: center;
-      color: #fff3df;
-      font-family: "Special Elite", Georgia, serif;
-      font-size: clamp(17px, 3vw, 32px);
-      line-height: 1.22;
-      letter-spacing: -.06em;
-      text-shadow: 0 0 8px rgba(255, 241, 217, .7);
-      transform: scaleX(.95);
-      animation: screenGlitch 5s infinite;
-    }
-
-    .screen-copy span {
-      color: #f1d8b6;
-    }
-
-    @keyframes screenGlitch {
-      0%, 88%, 90%, 100% { transform: translateX(0) skewX(0); }
-      89% { transform: translateX(3px) skewX(-2deg); }
-      91% { transform: translateX(-2px) skewX(1deg); }
-    }
-
-    /* TV controls */
-    .tv-controls {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      padding: 7px 2px;
-      color: #c59a68;
-    }
-
-    .tv-brand {
-      font-family: "Special Elite", Georgia, serif;
-      font-size: 8px;
-      letter-spacing: .2em;
-      color: #d3a779;
-      text-align: center;
-    }
-
-    .tv-dial {
-      width: 53px;
-      height: 53px;
-      border: 5px ridge #68472c;
-      border-radius: 50%;
-      background:
-        repeating-conic-gradient(#21170f 0deg 8deg, #a77b4d 9deg 12deg, #3c2819 13deg 20deg);
-      box-shadow: inset 0 0 0 3px #24170e, 0 3px 4px #140d08;
-      position: relative;
-    }
-
-    .tv-dial::after {
-      content: "";
-      position: absolute;
-      width: 3px;
-      height: 14px;
-      top: 3px;
-      left: 20px;
-      background: #e5c398;
-      transform: rotate(26deg);
-      transform-origin: bottom;
-    }
-
-    .tv-knobs {
-      display: flex;
-      gap: 9px;
-    }
-
-    .tv-knobs span {
-      width: 15px;
-      height: 15px;
-      border-radius: 50%;
-      border: 3px ridge #81552f;
-      background: #24180f;
-    }
-
-    .tv-speaker {
-      width: 61px;
-      height: 65px;
-      border: 1px solid rgba(0,0,0,.3);
-      background: repeating-linear-gradient(0deg, #21170f 0 2px, #614027 3px 4px);
-    }
-
-    .tv-led {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--orange);
-      box-shadow: 0 0 8px var(--orange);
-      animation: ledBlink 2s infinite;
-    }
-
-    @keyframes ledBlink {
-      50% { opacity: .35; }
-    }
-
-    .tv-legs {
-      display: flex;
-      justify-content: space-between;
-      padding: 0 30px;
-    }
-
-    .tv-legs span {
-      width: 30px;
-      height: 20px;
-      background: linear-gradient(90deg, #28180e, #674126, #20140c);
-      transform: skewX(-12deg);
-    }
-
-    /* Collection separator */
-    .collection-divider {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      padding: 30px 4% 25px;
-      color: var(--orange);
-      font-family: "Special Elite", Georgia, serif;
-      font-size: 13px;
-      letter-spacing: .13em;
-      text-align: center;
-      text-transform: uppercase;
-    }
-
-    .collection-divider::before,
-    .collection-divider::after {
-      content: "";
-      height: 1px;
-      flex: 1;
-      background: var(--cream);
-      opacity: .7;
-    }
-
-    .collection-divider .star {
-      color: var(--cream);
-      font-size: 22px;
-    }
-
-    /* PRODUCT SECTION */
-    .collection {
-      padding: 0 3.8% 65px;
-    }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .product {
-      min-width: 0;
-      cursor: default;
-    }
-
-    .product-frame {
-      aspect-ratio: 4 / 5;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      position: relative;
-      border: 1px solid #806d55;
-      border-radius: 6px;
-      background:
-        radial-gradient(ellipse at 50% 30%, rgba(233,216,187,.09), transparent 55%),
-        linear-gradient(145deg, #24221e, #121210);
-      transition: border-color .25s, transform .25s;
-    }
-
-    .product:hover .product-frame {
-      border-color: var(--orange);
-      transform: translateY(-4px);
-    }
-
-    .product-frame::before {
-      content: "";
-      position: absolute;
-      inset: 8px;
-      border: 1px solid rgba(233,216,187,.09);
-      pointer-events: none;
-    }
-
-    .product-placeholder {
-      text-align: center;
-      padding: 10px;
-      color: var(--cream);
-      font-family: "Special Elite", Georgia, serif;
-      font-size: clamp(12px, 1.5vw, 19px);
-      line-height: 1.3;
-      letter-spacing: -.04em;
-      text-transform: uppercase;
-    }
-
-    .product-placeholder .symbol {
-      display: block;
-      margin-bottom: 10px;
-      color: var(--orange);
-      font-family: "Space Grotesk", Arial, sans-serif;
-      font-size: 34px;
-      opacity: .85;
-    }
-
-    .product-name {
-      padding: 8px 5px 6px;
-      background: var(--cream);
-      color: #17120e;
-      border-radius: 0 0 5px 5px;
-      font-family: "Special Elite", Georgia, serif;
-      font-size: clamp(10px, 1.1vw, 13px);
-      text-align: center;
-      text-transform: uppercase;
-    }
-
-    .product-status {
-      padding-top: 8px;
-      color: var(--muted);
-      font-size: 8px;
-      text-align: center;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    /* Footer */
-    .footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 18px;
-      padding: 22px 4%;
-      border-top: 1px solid rgba(233,216,187,.15);
-      color: var(--muted);
-      font-size: 9px;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
-
-    .footer .brand {
-      font-size: 17px;
-    }
-
-    .footer .tagline {
-      text-align: right;
-    }
-
-    /* MOBILE */
-    @media (max-width: 850px) {
-      .topbar {
-        grid-template-columns: 1fr auto;
-        gap: 10px;
-      }
-
-      .topbar > .brand {
-        grid-column: 1 / -1;
-        grid-row: 1;
-      }
-
-      .nav {
-        grid-column: 1;
-        grid-row: 2;
-      }
-
-      .nav-right {
-        grid-column: 2;
-        grid-row: 2;
-      }
-
-      .hero {
-        min-height: 570px;
-        height: 75vw;
-      }
-
-      .tv-wrap {
-        width: 84%;
-      }
-
-      .tv {
-        grid-template-columns: minmax(0, 1fr) 75px;
-        gap: 7px;
-        padding: 13px;
-      }
-
-      .tv-screen {
-        min-height: 230px;
-      }
-
-      .tv-dial {
-        width: 42px;
-        height: 42px;
-      }
-
-      .tv-speaker {
-        width: 48px;
-        height: 50px;
-      }
-
-      .product-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 20px 12px;
-      }
-
-      .product-placeholder {
-        font-size: clamp(12px, 2.3vw, 19px);
-      }
-    }
-
-    @media (max-width: 520px) {
-      .topbar {
-        padding: 13px 15px;
-      }
-
-      .nav {
-        gap: 13px;
-      }
-
-      .nav a {
-        font-size: 9px;
-        letter-spacing: .07em;
-      }
-
-      .brand {
-        font-size: 20px;
-      }
-
-      .nav-right {
-        gap: 2px;
-      }
-
-      .hero {
-        min-height: 535px;
-        height: auto;
-        padding: 50px 10px 95px;
-      }
-
-      .room-poster {
-        top: 7%;
-        right: 2%;
-        width: 29%;
-        height: 23%;
-        font-size: 9px;
-      }
-
-      .tv-wrap {
-        width: 96%;
-        margin-top: 20px;
-      }
-
-      .tv {
-        grid-template-columns: minmax(0, 1fr) 57px;
-        gap: 5px;
-        padding: 9px;
-        border-width: 2px;
-      }
-
-      .tv-screen-frame {
-        padding: 7px;
-      }
-
-      .tv-screen {
-        min-height: 210px;
-      }
-
-      .screen-copy {
-        font-size: clamp(15px, 4.3vw, 23px);
-        padding: 10px;
-      }
-
-      .tv-controls {
-        gap: 10px;
-      }
-
-      .tv-dial {
-        width: 35px;
-        height: 35px;
-        border-width: 4px;
-      }
-
-      .tv-dial::after {
-        left: 13px;
-      }
-
-      .tv-speaker {
-        width: 38px;
-        height: 47px;
-      }
-
-      .tv-knobs {
-        gap: 5px;
-      }
-
-      .tv-knobs span {
-        width: 12px;
-        height: 12px;
-      }
-
-      .hero-caption {
-        right: 15px;
-        bottom: 17px;
-        width: 180px;
-        font-size: 9px;
-      }
-
-      .scroll-note {
-        bottom: 25px;
-        left: 15px;
-      }
-
-      .collection-divider {
-        padding: 26px 15px 22px;
-        font-size: 11px;
-        gap: 10px;
-      }
-
-      .collection {
-        padding: 0 12px 42px;
-      }
-
-      .product-grid {
-        gap: 17px 9px;
-      }
-
-      .product-frame::before {
-        inset: 5px;
-      }
-
-      .product-placeholder {
-        font-size: 12px;
-        padding: 7px;
-      }
-
-      .product-placeholder .symbol {
-        font-size: 25px;
-      }
-
-      .product-name {
-        font-size: 10px;
-        padding: 8px 2px;
-      }
-
-      .footer {
-        padding: 20px 15px;
-        flex-wrap: wrap;
-        font-size: 8px;
-      }
-
-      .footer .tagline {
-        width: 100%;
-        text-align: left;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      .tv-wrap,
-      .tv-screen::before,
-      .tv-screen::after,
-      .screen-copy,
-      .sound-toggle span,
-      .tv-led {
-        animation-duration: 8s;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b0908">
+<meta name="description" content="GoodnBadMemories — Nothing stays the same. Life moves on.">
+<title>GoodnBadMemories — Life, Worn.</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  --black: #0b0908;
+  --cream: #ead9bd;
+  --cream-light: #f5eadd;
+  --orange: #ed5b28;
+  --muted: #a89a86;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  color: var(--cream-light);
+  background: var(--black);
+  font-family: "Space Grotesk", Arial, sans-serif;
+}
+
+a { color: inherit; text-decoration: none; }
+
+::selection {
+  color: var(--black);
+  background: var(--orange);
+}
+
+/* HEADER */
+
+.topbar {
+  min-height: 68px;
+  padding: 13px 3.5%;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+  z-index: 10;
+  background: #0a0908;
+  border-bottom: 1px solid rgba(234,217,189,.13);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px,2.5vw,30px);
+}
+
+.nav a {
+  color: var(--cream);
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  transition: color .2s;
+}
+
+.nav a:hover { color: var(--orange); }
+
+.brand {
+  white-space: nowrap;
+  text-align: center;
+  font-family: "Special Elite", Georgia, serif;
+  font-size: clamp(17px,2.1vw,25px);
+  font-weight: bold;
+  letter-spacing: -.08em;
+}
+
+.brand .changing {
+  animation: logoCycle 3.2s steps(1,end) infinite;
+}
+
+.brand .white { color: #f5eee2; }
+.brand .orange { color: var(--orange); }
+
+@keyframes logoCycle {
+  0%,49.9% { color: #f0443e; }
+  50%,100% { color: #50b66a; }
+}
+
+.nav-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.equalizer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+  padding: 0 8px;
+}
+
+.equalizer span {
+  width: 4px;
+  border-radius: 4px;
+  background: var(--orange);
+  box-shadow: 0 0 9px rgba(237,91,40,.55);
+  animation: equalize .8s ease-in-out infinite alternate;
+}
+
+.equalizer span:nth-child(1) { height: 9px; }
+.equalizer span:nth-child(2) { height: 22px; animation-delay: -.4s; }
+.equalizer span:nth-child(3) { height: 15px; animation-delay: -.2s; }
+.equalizer span:nth-child(4) {
+  height: 21px;
+  background: #66a779;
+  animation-delay: -.5s;
+}
+
+@keyframes equalize {
+  to { transform: scaleY(.4); }
+}
+
+/* HERO ROOM: DARK, WARM, WORN, PHOTOGRAPHIC */
+
+.hero {
+  min-height: 690px;
+  height: min(760px, 78vw);
+  max-height: 850px;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 12% 34%, rgba(221,139,75,.24), transparent 25%),
+    radial-gradient(ellipse at 48% 60%, rgba(126,68,34,.19), transparent 43%),
+    linear-gradient(90deg,#24180f 0%,#19120d 36%,#100d0a 72%,#080807 100%);
+}
+
+/* Old room wall and wood panel shadows */
+
+.wall {
+  position: absolute;
+  inset: 0 0 20%;
+  z-index: -4;
+  background:
+    linear-gradient(90deg,transparent 11%,rgba(0,0,0,.5) 11.5%,transparent 12%),
+    linear-gradient(90deg,transparent 68%,rgba(0,0,0,.55) 68.5%,transparent 69%),
+    repeating-linear-gradient(0deg,transparent 0 128px,rgba(0,0,0,.19) 129px 132px),
+    linear-gradient(100deg,#36251a,#1e1711 52%,#100d0a);
+}
+
+.wall::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 2% 30%,rgba(255,190,126,.14),transparent 30%),
+    linear-gradient(180deg,transparent 65%,rgba(0,0,0,.55));
+}
+
+/* Dim lamp with crooked shade */
+
+.lamp {
+  position: absolute;
+  left: 3.2%;
+  top: 4%;
+  width: 95px;
+  height: 310px;
+  z-index: -1;
+  opacity: .78;
+}
+
+.lamp-shade {
+  position: absolute;
+  top: 0;
+  left: 1px;
+  width: 88px;
+  height: 66px;
+  transform: rotate(-7deg);
+  background: linear-gradient(110deg,#6b452b,#c08a52 45%,#553720);
+  clip-path: polygon(20% 0,80% 0,100% 100%,0 100%);
+  border-bottom: 3px solid #352015;
+  filter: brightness(.66);
+}
+
+.lamp-shade::after {
+  content: "";
+  position: absolute;
+  left: 35%;
+  bottom: 0;
+  width: 20%;
+  height: 100%;
+  background: rgba(0,0,0,.18);
+}
+
+.lamp-neck {
+  position: absolute;
+  top: 61px;
+  left: 41px;
+  width: 7px;
+  height: 215px;
+  background: linear-gradient(90deg,#1b120c,#76502f,#1a110b);
+  transform: rotate(1deg);
+}
+
+.lamp-base {
+  position: absolute;
+  bottom: 5px;
+  left: 12px;
+  width: 70px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(#7a512e,#20140b);
+}
+
+.lamp-glow {
+  position: absolute;
+  top: 35px;
+  left: -50px;
+  width: 210px;
+  height: 280px;
+  background: radial-gradient(ellipse,rgba(238,160,88,.24),transparent 68%);
+  filter: blur(13px);
+  animation: lampFlicker 6s infinite;
+}
+
+@keyframes lampFlicker {
+  0%,8%,10%,15%,100% { opacity: .85; }
+  9% { opacity: .25; }
+  13% { opacity: .48; }
+  65% { opacity: .7; }
+}
+
+/* Background painting / old racing poster */
+
+.painting {
+  position: absolute;
+  top: 8%;
+  right: 4%;
+  width: 23%;
+  height: 33%;
+  z-index: -2;
+  transform: rotate(3deg);
+  padding: 8px;
+  border: 7px solid #28180f;
+  box-shadow: 5px 8px 17px rgba(0,0,0,.55);
+  background:
+    repeating-linear-gradient(135deg,transparent 0 14px,rgba(238,91,40,.12) 15px 18px),
+    linear-gradient(150deg,#34271d,#15110e);
+}
+
+.painting-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(234,217,189,.25);
+  padding: 10px;
+  color: rgba(234,217,189,.67);
+  font-family: "Special Elite", Georgia, serif;
+  font-size: clamp(8px,1vw,13px);
+  background:
+    linear-gradient(160deg,transparent 48%,rgba(0,0,0,.7) 49%),
+    repeating-linear-gradient(0deg,transparent 0 23px,rgba(234,217,189,.05) 24px 25px);
+}
+
+.painting-inner strong {
+  display: block;
+  font-size: 1.8em;
+  line-height: .98;
+  margin-top: 15px;
+  transform: rotate(-4deg);
+}
+
+.painting-inner .racing-stripe {
+  position: absolute;
+  right: -20px;
+  bottom: 14px;
+  width: 150%;
+  height: 20px;
+  transform: rotate(-19deg);
+  background: repeating-linear-gradient(90deg,#d5b996 0 12px,#1a1510 12px 24px);
+  opacity: .5;
+}
+
+/* Floor plane */
+
+.floor {
+  position: absolute;
+  z-index: -1;
+  left: -5%;
+  bottom: -3%;
+  width: 110%;
+  height: 28%;
+  transform: perspective(340px) rotateX(7deg);
+  transform-origin: top;
+  background:
+    repeating-linear-gradient(90deg,transparent 0 155px,rgba(0,0,0,.3) 156px 159px),
+    repeating-linear-gradient(0deg,#1b120c 0 28px,#2b1d13 29px 32px);
+  border-top: 5px solid #100b07;
+}
+
+.floor::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.72));
+}
+
+/* OLD WOODEN TV */
+
+.tv-scene {
+  position: absolute;
+  z-index: 2;
+  top: 16%;
+  left: 50%;
+  width: min(720px,65%);
+  transform: translateX(-50%) perspective(1100px) rotateY(-7deg) rotateZ(-1.2deg);
+  filter: drop-shadow(20px 28px 17px rgba(0,0,0,.7));
+  animation: tvShift 8s ease-in-out infinite;
+}
+
+@keyframes tvShift {
+  0%,100% {
+    transform: translateX(-50%) perspective(1100px) rotateY(-7deg) rotateZ(-1.2deg) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) perspective(1100px) rotateY(-7deg) rotateZ(-1deg) translateY(-2px);
+  }
+}
+
+.tv-cabinet {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 112px;
+  gap: 12px;
+  padding: 17px 15px 18px 18px;
+  border-radius: 12px 18px 15px 10px;
+  border: 3px solid #28180e;
+  background:
+    radial-gradient(ellipse at 7% 5%,rgba(222,170,109,.3),transparent 18%),
+    repeating-linear-gradient(4deg,transparent 0 7px,rgba(255,200,126,.035) 8px 10px),
+    linear-gradient(110deg,#392113 0%,#714326 16%,#4b2b18 31%,#75492b 47%,#3d2415 69%,#633b21 84%,#21140c 100%);
+  box-shadow:
+    inset 0 0 0 3px rgba(0,0,0,.6),
+    inset 0 0 22px 7px rgba(0,0,0,.65),
+    0 9px 0 #170e08;
+}
+
+/* Wood scuffs and battered edges */
+
+.tv-cabinet::before {
+  content: "";
+  position: absolute;
+  z-index: 5;
+  inset: 3px;
+  pointer-events: none;
+  border-radius: 8px;
+  background:
+    radial-gradient(ellipse at 0 0,rgba(229,184,126,.4),transparent 12%),
+    radial-gradient(ellipse at 100% 100%,rgba(0,0,0,.75),transparent 18%),
+    linear-gradient(115deg,transparent 10%,rgba(0,0,0,.28) 10.4%,transparent 11%),
+    repeating-linear-gradient(112deg,transparent 0 65px,rgba(15,8,3,.27) 66px 68px,transparent 69px 103px);
+  opacity: .8;
+}
+
+.tv-cabinet::after {
+  content: "";
+  position: absolute;
+  z-index: 6;
+  top: 5px;
+  left: 34%;
+  width: 70px;
+  height: 3px;
+  transform: rotate(-5deg);
+  background: #b07a47;
+  opacity: .5;
+}
+
+/* Curved glass and deep screen housing */
+
+.screen-housing {
+  min-width: 0;
+  position: relative;
+  padding: 12px;
+  border-radius: 18px 24px 21px 14px;
+  background:
+    linear-gradient(135deg,#140e09,#3a2415 18%,#1a110b 52%,#0d0906);
+  box-shadow:
+    inset 0 0 0 2px rgba(0,0,0,.8),
+    0 0 0 1px rgba(210,159,97,.18);
+}
+
+.screen-housing::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 14px 20px 18px 11px;
+  border: 2px solid rgba(146,100,60,.3);
+  pointer-events: none;
+}
+
+.tv-screen {
+  position: relative;
+  min-height: 310px;
+  height: 100%;
+  overflow: hidden;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 48% 45% 43% 46% / 7% 7% 9% 9%;
+  background: #292724;
+  box-shadow:
+    inset 0 0 24px 9px #000,
+    inset 0 0 4px 2px #000,
+    0 0 0 3px #100c08;
+}
+
+/* Moving TV static */
+
+.tv-screen::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -30%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.9'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  opacity: .7;
+  mix-blend-mode: screen;
+  animation: staticMove .2s steps(3,end) infinite;
+}
+
+@keyframes staticMove {
+  0% { transform: translate(0,0); }
+  25% { transform: translate(-4%,3%); }
+  50% { transform: translate(3%,-5%); }
+  75% { transform: translate(4%,4%); }
+  100% { transform: translate(-2%,-3%); }
+}
+
+.tv-screen::after {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(0deg,rgba(0,0,0,.29) 0 2px,transparent 2px 4px),
+    linear-gradient(90deg,rgba(0,0,0,.45),transparent 20% 78%,rgba(0,0,0,.4)),
+    radial-gradient(ellipse,transparent 42%,rgba(0,0,0,.63) 100%);
+  animation: screenFlicker 3s infinite;
+}
+
+@keyframes screenFlicker {
+  0%,18%,20%,54%,57%,100% { opacity: .9; }
+  19%,56% { opacity: .48; }
+  73% { opacity: .75; }
+}
+
+.screen-copy {
+  z-index: 2;
+  padding: 18px;
+  text-align: center;
+  color: #f8e8cf;
+  font-family: "Special Elite", Georgia, serif;
+  font-size: clamp(18px,2.8vw,31px);
+  line-height: 1.23;
+  letter-spacing: -.06em;
+  text-shadow: 0 0 7px rgba(255,238,212,.8);
+  animation: textGlitch 5s infinite;
+}
+
+.screen-copy span { color: #e7d0ad; }
+
+@keyframes textGlitch {
+  0%,87%,90%,100% { transform: translateX(0); }
+  88% { transform: translateX(3px) skewX(-2deg); }
+  89% { transform: translateX(-2px) skewX(1deg); }
+}
+
+/* Side controls */
+
+.tv-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 1px;
+  color: #c59a68;
+}
+
+.tv-label {
+  font-family: "Special Elite", Georgia, serif;
+  font-size: 8px;
+  letter-spacing: .17em;
+  text-align: center;
+  color: #d3a779;
+}
+
+.tv-dial {
+  width: 57px;
+  height: 57px;
+  position: relative;
+  border: 5px ridge #68472c;
+  border-radius: 50%;
+  background: repeating-conic-gradient(#21170f 0deg 8deg,#a77b4d 9deg 12deg,#3c2819 13deg 20deg);
+  box-shadow: inset 0 0 0 3px #24170e,0 3px 4px #140d08;
+}
+
+.tv-dial::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 22px;
+  width: 3px;
+  height: 15px;
+  background: #e5c398;
+  transform: rotate(26deg);
+}
+
+.tv-knobs {
+  display: flex;
+  gap: 8px;
+}
+
+.tv-knobs span {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 3px ridge #81552f;
+  background: #24180f;
+}
+
+.tv-speaker {
+  width: 65px;
+  height: 70px;
+  border: 1px solid rgba(0,0,0,.4);
+  background: repeating-linear-gradient(0deg,#21170f 0 2px,#614027 3px 4px);
+  box-shadow: inset 0 0 8px #090604;
+}
+
+.tv-led {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 8px var(--orange);
+  animation: ledBlink 2s infinite;
+}
+
+@keyframes ledBlink {
+  50% { opacity: .3; }
+}
+
+.tv-legs {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 35px;
+}
+
+.tv-legs span {
+  width: 35px;
+  height: 23px;
+  background: linear-gradient(90deg,#24140b,#674126,#20140c);
+  transform: skewX(-12deg) rotate(2deg);
+}
+
+/* FOUR CROOKED VHS MOVIES */
+
+.vhs-stack {
+  position: absolute;
+  z-index: 4;
+  left: 3.2%;
+  bottom: 15%;
+  width: 210px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  transform: rotate(-3deg);
+}
+
+.vhs {
+  height: 32px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 13px;
+  border: 1px solid #9c7952;
+  border-left: 8px solid #302016;
+  background: linear-gradient(180deg,#4b3524,#23180f 48%,#100c08);
+  box-shadow: 3px 5px 5px rgba(0,0,0,.5),inset 0 1px rgba(240,207,162,.22);
+  color: var(--cream);
+  font-family: "Special Elite", Georgia, serif;
+  font-size: 12px;
+  letter-spacing: .1em;
+  text-shadow: 0 1px 2px #000;
+  transition: transform .2s,border-color .2s;
+}
+
+.vhs:nth-child(1) { transform: rotate(-1deg) translateX(5px); }
+.vhs:nth-child(2) { transform: rotate(2deg) translateX(-3px); }
+.vhs:nth-child(3) { transform: rotate(-2deg) translateX(4px); }
+.vhs:nth-child(4) { transform: rotate(1deg) translateX(-2px); }
+
+.vhs:hover {
+  transform: translateX(10px) rotate(0);
+  border-color: var(--orange);
+}
+
+.vhs::after {
+  content: "▰  ▰";
+  margin-left: auto;
+  font-size: 8px;
+  color: #b08b5d;
+}
+
+/* DOUBLE STYROFOAM CUP */
+
+.double-cup {
+  position: absolute;
+  z-index: 4;
+  right: 6%;
+  bottom: 17%;
+  width: 63px;
+  height: 103px;
+  transform: rotate(5deg);
+  filter: drop-shadow(8px 12px 7px rgba(0,0,0,.7));
+}
+
+.cup-top {
+  position: absolute;
+  top: 0;
+  left: -3px;
+  width: 69px;
+  height: 17px;
+  border-radius: 50%;
+  border: 3px solid #b8b0a2;
+  background: radial-gradient(ellipse,#171512 0 38%,#cfc7b8 40% 55%,#f0e9dc 57%);
+  z-index: 3;
+}
+
+.cup-body {
+  position: absolute;
+  top: 7px;
+  left: 2px;
+  width: 59px;
+  height: 91px;
+  clip-path: polygon(0 0,100% 0,80% 100%,20% 100%);
+  background:
+    linear-gradient(90deg,#b8b0a4,#f6f0e6 25%,#ddd5c8 70%,#a59b8d);
+  border: 1px solid #c7bfb3;
+}
+
+.cup-body::before {
+  content: "";
+  position: absolute;
+  top: 29px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(111,101,89,.3);
+  box-shadow: 0 4px 0 rgba(255,255,255,.2);
+}
+
+.cup-sleeve {
+  position: absolute;
+  top: 42px;
+  left: 0;
+  width: 100%;
+  height: 24px;
+  background: linear-gradient(90deg,#d4cabc,#f4ede2,#c9c0b3);
+  border-top: 1px solid #b4a99a;
+  border-bottom: 1px solid #b4a99a;
+}
+
+/* Cigarette lying next to the cup */
+
+.cigarette {
+  position: absolute;
+  z-index: 5;
+  right: 13%;
+  bottom: 13%;
+  width: 76px;
+  height: 7px;
+  transform: rotate(-24deg);
+  border-radius: 2px;
+  background: linear-gradient(180deg,#f4ead7,#bdb09b,#e9deca);
+  box-shadow: 2px 4px 4px rgba(0,0,0,.6);
+}
+
+.cigarette::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 14px;
+  height: 7px;
+  background: linear-gradient(90deg,#3e2013,#a85c36,#d18b52);
+}
+
+.cigarette::after {
+  content: "";
+  position: absolute;
+  right: -3px;
+  top: -1px;
+  width: 5px;
+  height: 9px;
+  border-radius: 50%;
+  background: #26201a;
+}
+
+/* SCATTERED FASHION PHOTOS ON THE FLOOR */
+
+.floor-photos {
+  position: absolute;
+  z-index: 3;
+  left: 26%;
+  bottom: 1%;
+  width: 47%;
+  height: 19%;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  perspective: 600px;
+}
+
+.photo {
+  flex: 1;
+  height: 100%;
+  position: relative;
+  padding: 5px;
+  background: #c8b9a1;
+  box-shadow: 4px 7px 9px rgba(0,0,0,.65);
+  transform: rotate(-9deg) skewY(2deg);
+  overflow: hidden;
+}
+
+.photo:nth-child(2) {
+  transform: rotate(8deg) translateY(4px);
+}
+
+.photo:nth-child(3) {
+  transform: rotate(-4deg) translateY(-3px);
+}
+
+.photo-image {
+  position: absolute;
+  inset: 5px;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% 26%,#8e7965 0 10%,transparent 11%),
+    linear-gradient(90deg,transparent 28%,rgba(0,0,0,.55) 29% 70%,transparent 71%),
+    linear-gradient(160deg,#706151,#25211e 52%,#11100f);
+  filter: sepia(.45) grayscale(.45);
+}
+
+.photo-image::before {
+  content: "";
+  position: absolute;
+  left: 25%;
+  top: 25%;
+  width: 50%;
+  height: 80%;
+  border-radius: 40% 40% 4% 4%;
+  background: linear-gradient(90deg,#181513,#4a4139,#171412);
+  transform: rotate(-4deg);
+}
+
+.photo-image::after {
+  content: "CENSORED";
+  position: absolute;
+  top: 36%;
+  left: 5%;
+  width: 90%;
+  padding: 4px 0;
+  text-align: center;
+  color: #f3e5d0;
+  background: rgba(12,11,10,.94);
+  font-family: "Special Elite", Georgia, serif;
+  font-size: clamp(6px,.7vw,9px);
+  letter-spacing: .12em;
+  transform: rotate(-4deg);
+}
+
+/* Hero captions */
+
+.hero-caption {
+  position: absolute;
+  z-index: 5;
+  right: 3.5%;
+  bottom: 7%;
+  width: 190px;
+  color: var(--cream);
+  font-size: 9px;
+  line-height: 1.8;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.hero-caption strong {
+  display: block;
+  padding-bottom: 9px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--cream);
+  font-weight: 500;
+}
+
+.scroll-note {
+  position: absolute;
+  z-index: 5;
+  left: 3.5%;
+  bottom: 7%;
+  color: var(--cream);
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.scroll-note::before {
+  content: "";
+  display: inline-block;
+  width: 23px;
+  height: 1px;
+  margin: 0 9px 3px 0;
+  background: var(--orange);
+}
+
+/* COLLECTION DIVIDER */
+
+.collection-divider {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 30px 4% 25px;
+  color: var(--orange);
+  font-family: "Special Elite", Georgia, serif;
+  font-size: 13px;
+  letter-spacing: .13em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.collection-divider::before,
+.collection-divider::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: var(--cream);
+  opacity: .7;
+}
+
+.collection-divider .star {
+  color: var(--cream);
+  font-size: 22px;
+}
+
+/* PRODUCT PLACEHOLDERS */
+
+.collection { padding: 0 3.8% 65px; }
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(6,minmax(0,1fr));
+  gap: 14px;
+}
+
+.product { min-width: 0; }
+
+.product-frame {
+  aspect-ratio: 4 / 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #806d55;
+  border-radius: 5px;
+  background:
+    radial-gradient(ellipse at 50% 30%,rgba(233,216,187,.09),transparent 55%),
+    linear-gradient(145deg,#24221e,#121210);
+  transition: border-color .25s,transform .25s;
+}
+
+.product-frame::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(233,216,187,.09);
+  pointer-events: none;
+}
+
+.product:hover .product-frame {
+  border-color: var(--orange);
+  transform: translateY(-4px);
+}
+
+.product-placeholder {
+  padding: 10px;
+  text-align: center;
+  color: var(--cream);
+  font-family: "Special Elite", Georgia, serif;
+  font-size: clamp(12px,1.5vw,19px);
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.product-placeholder .symbol {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--orange);
+  font-family: "Space Grotesk",Arial,sans-serif;
+  font-size: 34px;
+}
+
+.product-name {
+  padding: 8px 5px 6px;
+  background: var(--cream);
+  color: #17120e;
+  border-radius: 0 0 4px 4px;
+  font-family: "Special Elite",Georgia,serif;
+  font-size: clamp(10px,1.1vw,13px);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.product-status {
+  padding-top: 8px;
+  color: var(--muted);
+  font-size: 8px;
+  text-align: center;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+/* FOOTER */
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  padding: 22px 4%;
+  border-top: 1px solid rgba(233,216,187,.15);
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.footer .brand { font-size: 17px; }
+
+/* RESPONSIVE LAYOUT */
+
+@media (max-width: 850px) {
+  .topbar {
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+  }
+
+  .topbar > .brand {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .nav { grid-column: 1; grid-row: 2; }
+  .nav-right { grid-column: 2; grid-row: 2; }
+
+  .hero { min-height: 590px; height: 76vw; }
+
+  .tv-scene {
+    top: 19%;
+    width: 67%;
+  }
+
+  .tv-cabinet {
+    grid-template-columns: minmax(0,1fr) 76px;
+    gap: 7px;
+    padding: 12px;
+  }
+
+  .tv-screen { min-height: 235px; }
+  .tv-dial { width: 42px; height: 42px; }
+  .tv-speaker { width: 49px; height: 51px; }
+
+  .vhs-stack { width: 160px; bottom: 14%; }
+  .vhs { height: 27px; font-size: 10px; }
+  .double-cup { transform: scale(.85) rotate(5deg); transform-origin: bottom right; }
+  .product-grid { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px 12px; }
+}
+
+@media (max-width: 520px) {
+  .topbar { padding: 13px 12px; }
+
+  .nav { gap: 12px; }
+  .nav a { font-size: 8px; letter-spacing: .06em; }
+  .brand { font-size: 19px; }
+
+  .hero {
+    min-height: 570px;
+    height: auto;
+  }
+
+  .lamp {
+    left: -9px;
+    top: 5%;
+    transform: scale(.7);
+    transform-origin: top left;
+  }
+
+  .painting {
+    top: 5%;
+    right: 3%;
+    width: 28%;
+    height: 22%;
+  }
+
+  .tv-scene {
+    top: 24%;
+    width: 92%;
+  }
+
+  .tv-cabinet {
+    grid-template-columns: minmax(0,1fr) 53px;
+    gap: 5px;
+    padding: 8px;
+    border-width: 2px;
+  }
+
+  .screen-housing { padding: 7px; }
+
+  .tv-screen { min-height: 210px; }
+
+  .screen-copy {
+    font-size: clamp(15px,4.2vw,22px);
+    padding: 8px;
+  }
+
+  .tv-controls { gap: 9px; }
+  .tv-label { font-size: 6px; }
+  .tv-dial { width: 33px; height: 33px; border-width: 3px; }
+  .tv-dial::after { left: 12px; height: 10px; }
+  .tv-knobs { gap: 4px; }
+  .tv-knobs span { width: 11px; height: 11px; }
+  .tv-speaker { width: 36px; height: 42px; }
+
+  .tv-legs { padding: 0 24px; }
+  .tv-legs span { width: 25px; height: 18px; }
+
+  .vhs-stack {
+    left: 3%;
+    bottom: 12%;
+    width: 112px;
+    gap: 3px;
+  }
+
+  .vhs {
+    height: 23px;
+    padding: 0 6px;
+    font-size: 8px;
+    border-left-width: 5px;
+  }
+
+  .vhs::after { font-size: 6px; }
+
+  .double-cup {
+    right: 3%;
+    bottom: 15%;
+    transform: scale(.7) rotate(5deg);
+  }
+
+  .cigarette {
+    right: 11%;
+    bottom: 11%;
+    transform: scale(.7) rotate(-24deg);
+    transform-origin: right center;
+  }
+
+  .floor-photos {
+    left: 29%;
+    bottom: 1%;
+    width: 42%;
+    height: 12%;
+    gap: 4px;
+  }
+
+  .photo { padding: 3px; }
+  .photo-image { inset: 3px; }
+  .photo-image::after { font-size: 5px; }
+
+  .hero-caption {
+    right: 12px;
+    bottom: 3%;
+    width: 145px;
+    font-size: 7px;
+  }
+
+  .scroll-note {
+    left: 12px;
+    bottom: 4%;
+    font-size: 8px;
+  }
+
+  .collection-divider {
+    padding: 24px 12px;
+    gap: 10px;
+    font-size: 11px;
+  }
+
+  .collection { padding: 0 10px 40px; }
+  .product-grid { gap: 17px 8px; }
+
+  .product-placeholder {
+    font-size: 11px;
+    padding: 6px;
+  }
+
+  .product-placeholder .symbol { font-size: 25px; }
+  .product-name { font-size: 9px; padding: 8px 2px; }
+
+  .footer { padding: 20px 12px; font-size: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  .brand .changing,
+  .tv-scene,
+  .tv-screen::before,
+  .tv-screen::after,
+  .screen-copy,
+  .equalizer span,
+  .tv-led,
+  .lamp-glow {
+    animation-duration: 8s;
+  }
+}
+</style>
 </head>
 
 <body>
-  <header class="topbar">
-    <nav class="nav" aria-label="Main navigation">
-      <a href="#home">Home</a>
-      <a href="#collection">Shop</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
 
-    <a class="brand" href="#home" aria-label="GoodnBadMemories home">
-      <span class="changing">Goodn</span><span class="white">Bad</span><span class="orange">Memories</span>
-    </a>
+<header class="topbar">
+  <nav class="nav" aria-label="Main navigation">
+    <a href="#home">Home</a>
+    <a href="#collection">Shop</a>
+    <a href="#story">Story</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
-    <div class="nav-right">
-      <button class="sound-toggle" type="button" aria-label="Decorative animated equalizer" title="Life, worn.">
-        <span></span><span></span><span></span><span></span>
-      </button>
+  <a class="brand" href="#home" aria-label="GoodnBadMemories home">
+    <span class="changing">Goodn</span><span class="white">Bad</span><span class="orange">Memories</span>
+  </a>
+
+  <div class="nav-right" aria-label="Animated brand accent">
+    <div class="equalizer"><span></span><span></span><span></span><span></span></div>
+  </div>
+</header>
+
+<main>
+
+<section class="hero" id="home" aria-label="GoodnBadMemories vintage television campaign">
+
+  <div class="wall"></div>
+  <div class="floor"></div>
+
+  <!-- Old, dim, slightly broken lamp -->
+  <div class="lamp" aria-hidden="true">
+    <div class="lamp-glow"></div>
+    <div class="lamp-shade"></div>
+    <div class="lamp-neck"></div>
+    <div class="lamp-base"></div>
+  </div>
+
+  <!-- Crooked wall painting / racing poster -->
+  <div class="painting" aria-hidden="true">
+    <div class="painting-inner">
+      NIGHT RUN / 06
+      <strong>KEEP<br>MOVING.</strong>
+      <div class="racing-stripe"></div>
     </div>
-  </header>
+  </div>
 
-  <main>
-    <section class="hero" id="home" aria-label="GoodnBadMemories campaign">
-      <div class="room-wall"></div>
-      <div class="room-light"></div>
+  <!-- Wooden television, angled in perspective -->
+  <div class="tv-scene">
+    <div class="tv-cabinet">
 
-      <div class="room-poster" aria-hidden="true">
-        KEEP MOVING
-        <strong>GOOD TIMES<br>BAD TIMES<br>SAME LIFE.</strong>
-      </div>
-
-      <div class="tv-wrap">
-        <div class="tv">
-          <div class="tv-screen-frame">
-            <div class="tv-screen">
-              <div class="screen-copy">
-                NOTHING STAYS<br>
-                <span>THE SAME.</span><br><br>
-                LIFE MOVES ON.
-              </div>
-            </div>
-          </div>
-
-          <div class="tv-controls">
-            <div class="tv-brand">GBM / 01</div>
-            <div class="tv-dial"></div>
-            <div class="tv-knobs"><span></span><span></span></div>
-            <div class="tv-speaker"></div>
-            <div class="tv-led"></div>
+      <div class="screen-housing">
+        <div class="tv-screen">
+          <div class="screen-copy">
+            NOTHING STAYS<br>
+            <span>THE SAME.</span><br><br>
+            LIFE MOVES ON.
           </div>
         </div>
-
-        <div class="tv-legs">
-          <span></span><span></span>
-        </div>
       </div>
 
-      <div class="room-floor"></div>
-
-      <div class="scroll-note">Scroll to explore</div>
-
-      <div class="hero-caption">
-        <strong>Clothes for the moments that change you.</strong>
-        <span>GOODNBADMEMORIES / LIFE, WORN.</span>
+      <div class="tv-controls">
+        <div class="tv-label">GBM / 01</div>
+        <div class="tv-dial"></div>
+        <div class="tv-knobs"><span></span><span></span></div>
+        <div class="tv-speaker"></div>
+        <div class="tv-led"></div>
       </div>
-    </section>
 
-    <div class="collection-divider" id="collection">
-      <span class="star">✳</span>
-      <span>The Collection</span>
-      <span class="star">▧</span>
     </div>
 
-    <section class="collection" aria-label="Upcoming collection">
-      <div class="product-grid">
+    <div class="tv-legs"><span></span><span></span></div>
+  </div>
 
-        <article class="product">
-          <div class="product-frame">
-            <div class="product-placeholder">
-              <span class="symbol">✳</span>
-              GOODNBAD<br>MEMORIES
-            </div>
-          </div>
-          <div class="product-name">Onyx Backpack</div>
-          <div class="product-status">Coming soon</div>
-        </article>
+  <!-- Four crooked VHS tapes are also the navigation -->
+  <div class="vhs-stack" aria-label="Quick navigation">
+    <a class="vhs" href="#collection">SHOP</a>
+    <a class="vhs" href="#story">STORY</a>
+    <a class="vhs" href="#contact">CONTACT</a>
+    <a class="vhs" href="#collection">NEW ARRIVALS</a>
+  </div>
 
-        <article class="product">
-          <div class="product-frame">
-            <div class="product-placeholder">
-              <span class="symbol">✳</span>
-              GOODNBAD<br>MEMORIES
-            </div>
-          </div>
-          <div class="product-name">Hoodie</div>
-          <div class="product-status">Coming soon</div>
-        </article>
+  <!-- Double Styrofoam cup -->
+  <div class="double-cup" aria-label="Styrofoam cup">
+    <div class="cup-top"></div>
+    <div class="cup-body">
+      <div class="cup-sleeve"></div>
+    </div>
+  </div>
 
-        <article class="product">
-          <div class="product-frame">
-            <div class="product-placeholder">
-              <span class="symbol">✳</span>
-              GOODNBAD<br>MEMORIES
-            </div>
-          </div>
-          <div class="product-name">Jeans</div>
-          <div class="product-status">Coming soon</div>
-        </article>
+  <!-- Cigarette lying on the floor -->
+  <div class="cigarette" aria-label="Cigarette"></div>
 
-        <article class="product">
-          <div class="product-frame">
-            <div class="product-placeholder">
-              <span class="symbol">✳</span>
-              GOODNBAD<br>MEMORIES
-            </div>
-          </div>
-          <div class="product-name">Belts</div>
-          <div class="product-status">Coming soon</div>
-        </article>
+  <!-- Scattered fashion photographs with censored faces -->
+  <div class="floor-photos" aria-label="Scattered fashion editorial photographs">
+    <div class="photo"><div class="photo-image"></div></div>
+    <div class="photo"><div class="photo-image"></div></div>
+    <div class="photo"><div class="photo-image"></div></div>
+  </div>
 
-        <article class="product">
-          <div class="product-frame">
-            <div class="product-placeholder">
-              <span class="symbol">✳</span>
-              GOODNBAD<br>MEMORIES
-            </div>
-          </div>
-          <div class="product-name">Glasses</div>
-          <div class="product-status">Coming soon</div>
-        </article>
+  <div class="scroll-note">Scroll to explore</div>
 
-        <article class="product">
-          <div class="product-frame">
-            <div class="product-placeholder">
-              <span class="symbol">✳</span>
-              GOODNBAD<br>MEMORIES
-            </div>
-          </div>
-          <div class="product-name">Beanies</div>
-          <div class="product-status">Coming soon</div>
-        </article>
+  <div class="hero-caption">
+    <strong>Clothes for the moments that change you.</strong>
+    GOODNBADMEMORIES / LIFE, WORN.
+  </div>
 
+</section>
+
+<div class="collection-divider" id="collection">
+  <span class="star">✳</span>
+  <span>The Collection</span>
+  <span class="star">▧</span>
+</div>
+
+<section class="collection" aria-label="Upcoming collection">
+  <div class="product-grid">
+
+    <article class="product">
+      <div class="product-frame">
+        <div class="product-placeholder"><span class="symbol">✳</span>GOODNBAD<br>MEMORIES</div>
       </div>
-    </section>
-  </main>
+      <div class="product-name">Onyx Backpack</div>
+      <div class="product-status">Coming soon</div>
+    </article>
 
-  <footer class="footer" id="contact">
-    <a class="brand" href="#home">
-      <span class="changing">Goodn</span><span class="white">Bad</span><span class="orange">Memories</span>
-    </a>
+    <article class="product">
+      <div class="product-frame">
+        <div class="product-placeholder"><span class="symbol">✳</span>GOODNBAD<br>MEMORIES</div>
+      </div>
+      <div class="product-name">Hoodie</div>
+      <div class="product-status">Coming soon</div>
+    </article>
 
-    <div id="about">Nothing stays the same. Life moves on.</div>
+    <article class="product">
+      <div class="product-frame">
+        <div class="product-placeholder"><span class="symbol">✳</span>GOODNBAD<br>MEMORIES</div>
+      </div>
+      <div class="product-name">Jeans</div>
+      <div class="product-status">Coming soon</div>
+    </article>
 
-    <a href="mailto:GoodnBadMemories001@gmail.com">
-      Contact ↗
-    </a>
+    <article class="product">
+      <div class="product-frame">
+        <div class="product-placeholder"><span class="symbol">✳</span>GOODNBAD<br>MEMORIES</div>
+      </div>
+      <div class="product-name">Belts</div>
+      <div class="product-status">Coming soon</div>
+    </article>
 
-    <div class="tagline">© <span id="year"></span> GoodnBadMemories</div>
-  </footer>
+    <article class="product">
+      <div class="product-frame">
+        <div class="product-placeholder"><span class="symbol">✳</span>GOODNBAD<br>MEMORIES</div>
+      </div>
+      <div class="product-name">Glasses</div>
+      <div class="product-status">Coming soon</div>
+    </article>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+    <article class="product">
+      <div class="product-frame">
+        <div class="product-placeholder"><span class="symbol">✳</span>GOODNBAD<br>MEMORIES</div>
+      </div>
+      <div class="product-name">Beanies</div>
+      <div class="product-status">Coming soon</div>
+    </article>
+
+  </div>
+</section>
+
+<!-- Brand story -->
+<section id="story" style="padding:75px 7%;border-top:1px solid rgba(234,217,189,.16);">
+  <p style="color:#ed5b28;font-size:10px;letter-spacing:.2em;text-transform:uppercase;">THE STORY / 001</p>
+
+  <h1 style="max-width:850px;font-family:'Special Elite',Georgia,serif;font-size:clamp(34px,6vw,70px);line-height:1.05;font-weight:400;">
+    EVERY MOMENT LEAVES SOMETHING BEHIND.
+  </h1>
+
+  <p style="max-width:620px;color:#c7b9a5;line-height:1.9;font-size:14px;">
+    A new beginning. A final goodbye. A loss you never saw coming.
+    A job that changes everything. A home lost overnight. A marriage.
+    A birth. A moment of darkness. A reason to keep going.
+  </p>
+
+  <p style="max-width:620px;color:#c7b9a5;line-height:1.9;font-size:14px;">
+    GoodnBadMemories was created from that reality. We translate the
+    raw, unfiltered experiences of being alive into clothing — pieces
+    that represent the moments, emotions, and memories that make us who we are.
+  </p>
+
+  <p style="font-family:'Special Elite',Georgia,serif;color:#ed5b28;font-size:20px;">
+    Wear what life leaves behind.
+  </p>
+</section>
+
+</main>
+
+<footer class="footer" id="contact">
+  <a class="brand" href="#home">
+    <span class="changing">Goodn</span><span class="white">Bad</span><span class="orange">Memories</span>
+  </a>
+
+  <span>Nothing stays the same. Life moves on.</span>
+
+  <a href="mailto:GoodnBadMemories001@gmail.com">Contact ↗</a>
+
+  <span>© <span id="year"></span> GoodnBadMemories</span>
+</footer>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
 </body>
 </html>
 
