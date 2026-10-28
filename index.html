@@ -4,27 +4,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#171717">
-  <meta name="description" content="GoodnBadMemories — Nothing stays the same, life moves on. Clothing inspired by the moments, emotions, and memories that shape us.">
+  <meta name="theme-color" content="#0b0b0a">
+  <meta name="description" content="GoodnBadMemories. Nothing stays the same. Life moves on. Life-inspired underground streetwear.">
   <title>GoodnBadMemories — Life, Worn.</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
     :root {
-      --black: #171717;
-      --black-soft: #202020;
-      --orange: #f07824;
-      --grey: #929292;
-      --grey-light: #c8c5c0;
-      --brown: #76513b;
-      --paper: #f2eee8;
-      --line: rgba(242, 238, 232, .17);
-      --muted: #a6a29d;
-      --font-display: "Space Grotesk", Arial, sans-serif;
-      --font-body: "DM Sans", Arial, sans-serif;
+      --black: #0b0b0a;
+      --panel: #151513;
+      --cream: #e9d8bb;
+      --cream-light: #f4e9d7;
+      --orange: #ed5b28;
+      --muted: #a99e8d;
+      --line: rgba(233, 216, 187, .28);
     }
 
     * {
@@ -37,11 +31,9 @@
 
     body {
       margin: 0;
+      color: var(--cream-light);
       background: var(--black);
-      color: var(--paper);
-      font-family: var(--font-body);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
+      font-family: "Space Grotesk", Arial, sans-serif;
     }
 
     a {
@@ -49,873 +41,978 @@
       text-decoration: none;
     }
 
-    button, a {
-      -webkit-tap-highlight-color: transparent;
+    button {
+      font: inherit;
     }
 
     ::selection {
-      background: var(--orange);
       color: var(--black);
+      background: var(--orange);
     }
 
-    /* Announcement bar */
-    .announcement {
-      padding: 9px 16px;
-      background: var(--orange);
-      color: var(--black);
-      text-align: center;
+    /* HEADER */
+
+    .topbar {
+      min-height: 68px;
+      padding: 14px 3.5%;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 20px;
+      background: rgba(10, 10, 9, .97);
+      border-bottom: 1px solid rgba(233, 216, 187, .1);
+      position: relative;
+      z-index: 5;
+    }
+
+    .nav {
+      display: flex;
+      gap: clamp(12px, 2.5vw, 30px);
+      align-items: center;
+    }
+
+    .nav a {
       font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .19em;
       text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--cream);
+      transition: color .2s;
     }
 
-    /* Header and continuously animated logo */
-    .site-header {
-      width: min(1220px, calc(100% - 48px));
-      margin: 0 auto;
-      min-height: 88px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      border-bottom: 1px solid var(--line);
+    .nav a:hover {
+      color: var(--orange);
     }
 
-    .wordmark {
-      font-family: var(--font-display);
-      font-size: clamp(18px, 2.3vw, 25px);
-      font-weight: 700;
-      letter-spacing: -.075em;
+    .brand {
+      font-family: "Special Elite", Georgia, serif;
+      font-size: clamp(17px, 2.1vw, 25px);
+      font-weight: bold;
+      letter-spacing: -.08em;
       white-space: nowrap;
+      text-align: center;
+      text-shadow: 0 0 12px rgba(233, 216, 187, .12);
     }
 
-    /* Red changes to green continuously.
-       White and orange remain their own colors. */
-    .wordmark .logo-red {
-      color: #ed3434;
-      animation: logoColors 3.2s steps(1, end) infinite;
+    .brand .changing {
+      animation: colorCycle 3.2s infinite steps(1, end);
     }
 
-    .wordmark .logo-white {
-      color: #f2eee8;
+    .brand .white {
+      color: #f5eee2;
     }
 
-    .wordmark .logo-orange {
+    .brand .orange {
       color: var(--orange);
     }
 
-    @keyframes logoColors {
+    @keyframes colorCycle {
       0%, 49.9% {
-        color: #ed3434;
+        color: #f0443e;
       }
-
       50%, 100% {
-        color: #49a85d;
+        color: #50b66a;
       }
     }
 
-    nav {
+    .nav-right {
       display: flex;
+      justify-content: flex-end;
       align-items: center;
-      gap: clamp(16px, 3vw, 36px);
+      gap: 15px;
     }
 
-    nav a {
-      color: var(--grey-light);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .13em;
-      text-transform: uppercase;
-      transition: color .2s ease;
-    }
-
-    nav a:hover,
-    nav a:focus-visible {
-      color: var(--orange);
-    }
-
-    /* Homepage hero */
-    .hero {
-      width: min(1220px, calc(100% - 48px));
-      margin: 0 auto;
-      min-height: min(760px, 83vh);
-      padding: 92px 0 76px;
+    .sound-toggle {
+      width: 44px;
+      height: 34px;
+      border: 0;
+      background: transparent;
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
+      align-items: center;
+      gap: 3px;
+      cursor: pointer;
+    }
+
+    .sound-toggle span {
+      display: block;
+      width: 4px;
+      border-radius: 3px;
+      background: var(--orange);
+      animation: equalizer .8s infinite alternate ease-in-out;
+    }
+
+    .sound-toggle span:nth-child(1) { height: 10px; }
+    .sound-toggle span:nth-child(2) { height: 22px; animation-delay: -.4s; }
+    .sound-toggle span:nth-child(3) { height: 15px; animation-delay: -.2s; }
+    .sound-toggle span:nth-child(4) { height: 24px; background: #62a96e; animation-delay: -.5s; }
+
+    @keyframes equalizer {
+      to { transform: scaleY(.45); }
+    }
+
+    /* HERO ROOM */
+
+    .hero {
+      min-height: 640px;
+      height: min(760px, 80vw);
+      max-height: 850px;
       position: relative;
       overflow: hidden;
+      isolation: isolate;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 4%;
+      background:
+        radial-gradient(ellipse at 32% 54%, rgba(143, 76, 35, .27), transparent 38%),
+        radial-gradient(ellipse at 88% 32%, rgba(116, 76, 45, .19), transparent 30%),
+        linear-gradient(100deg, #38271c 0%, #1d1712 28%, #151310 60%, #090909 100%);
     }
 
-    .hero::after {
-      content: "GBM";
+    /* Room details */
+    .room-wall {
       position: absolute;
-      z-index: 0;
-      right: -3%;
-      top: 8%;
-      color: rgba(240, 120, 36, .055);
-      font-family: var(--font-display);
-      font-size: clamp(200px, 36vw, 490px);
-      font-weight: 700;
-      line-height: .9;
-      letter-spacing: -.12em;
+      inset: 0;
+      z-index: -2;
+      opacity: .65;
+      background:
+        linear-gradient(90deg, transparent 10%, rgba(0,0,0,.5) 10.4%, transparent 11%),
+        linear-gradient(90deg, transparent 72%, rgba(0,0,0,.55) 72.5%, transparent 73%),
+        repeating-linear-gradient(0deg, transparent 0 125px, rgba(0,0,0,.14) 126px 130px),
+        linear-gradient(180deg, #211a14, #38271b 70%, #17110d);
+    }
+
+    .room-light {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 35%;
+      height: 65%;
+      background: linear-gradient(125deg, rgba(255, 181, 104, .22), transparent 65%);
+      filter: blur(10px);
       pointer-events: none;
     }
 
-    .eyebrow {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: var(--grey);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 28px;
-      height: 2px;
-      background: var(--orange);
-    }
-
-    .hero h1 {
-      position: relative;
-      z-index: 1;
-      max-width: 1050px;
-      margin: 48px 0 28px;
-      font-family: var(--font-display);
-      font-size: clamp(54px, 10.4vw, 140px);
-      font-weight: 700;
-      letter-spacing: -.09em;
-      line-height: .91;
-      text-transform: uppercase;
-    }
-
-    .hero h1 span {
-      color: var(--orange);
-      display: block;
-    }
-
-    .hero-bottom {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 32px;
-      margin-top: 42px;
-    }
-
-    .hero-copy {
-      max-width: 450px;
-      color: var(--grey-light);
-      font-size: 15px;
-    }
-
-    .hero-copy strong {
-      color: var(--paper);
-      font-weight: 600;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .button {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 48px;
-      padding: 0 20px;
-      border: 1px solid var(--orange);
-      background: var(--orange);
-      color: var(--black);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      transition: background .2s ease, color .2s ease, border-color .2s ease;
-    }
-
-    .button:hover {
-      background: transparent;
-      color: var(--orange);
-    }
-
-    .button.secondary {
-      border-color: var(--line);
-      background: transparent;
-      color: var(--paper);
-    }
-
-    .button.secondary:hover {
-      border-color: var(--orange);
-      color: var(--orange);
-    }
-
-    /* Scrolling brand statement */
-    .ticker {
+    .room-poster {
+      position: absolute;
+      top: 9%;
+      right: 3%;
+      width: 22%;
+      height: 34%;
+      padding: 12px;
+      border: 7px solid #20170f;
+      background:
+        repeating-linear-gradient(135deg, transparent 0 14px, rgba(230, 95, 40, .18) 15px 18px),
+        #211a14;
+      transform: rotate(3deg);
+      color: rgba(233, 216, 187, .42);
+      font-family: "Special Elite", Georgia, serif;
+      font-size: clamp(10px, 1.5vw, 18px);
       overflow: hidden;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      background: #1d1d1d;
     }
 
-    .ticker-inner {
-      width: max-content;
-      display: flex;
-      gap: 30px;
-      padding: 17px 0;
-      color: var(--grey-light);
-      font-family: var(--font-display);
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: .16em;
-      text-transform: uppercase;
+    .room-poster strong {
+      display: block;
+      margin-top: 18px;
+      font-size: 1.6em;
+      line-height: 1.1;
     }
 
-    .ticker-inner span {
-      color: var(--orange);
+    .room-floor {
+      position: absolute;
+      z-index: -1;
+      left: -5%;
+      bottom: -2%;
+      width: 110%;
+      height: 26%;
+      transform: perspective(260px) rotateX(8deg);
+      transform-origin: top;
+      background:
+        repeating-linear-gradient(90deg, transparent 0 140px, rgba(0,0,0,.22) 141px 145px),
+        repeating-linear-gradient(0deg, #19120d 0 30px, #302016 31px 34px);
+      border-top: 5px solid #110d09;
     }
 
-    /* General section layout */
-    .section {
-      width: min(1220px, calc(100% - 48px));
-      margin: 0 auto;
-      padding: 112px 0;
-    }
-
-    .section-label {
-      margin-bottom: 20px;
-      color: var(--orange);
+    .hero-caption {
+      position: absolute;
+      bottom: 7%;
+      right: 4%;
+      z-index: 2;
+      width: 205px;
       font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .22em;
+      line-height: 1.8;
       text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--cream);
     }
 
-    .section h2 {
-      max-width: 850px;
-      margin: 0;
-      font-family: var(--font-display);
-      font-size: clamp(38px, 6vw, 76px);
-      line-height: .99;
-      letter-spacing: -.075em;
-      text-transform: uppercase;
+    .hero-caption strong {
+      display: block;
+      padding-bottom: 9px;
+      border-bottom: 1px solid var(--cream);
+      font-weight: 500;
     }
 
-    /* Product previews */
-    .shop-intro {
+    .scroll-note {
+      position: absolute;
+      bottom: 7%;
+      left: 4%;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .17em;
+      color: var(--cream);
+    }
+
+    .scroll-note::before {
+      content: "";
+      display: inline-block;
+      width: 22px;
+      height: 1px;
+      margin: 0 10px 3px 0;
+      background: var(--orange);
+    }
+
+    /* OLD WOODEN TELEVISION */
+
+    .tv-wrap {
+      position: relative;
+      width: min(720px, 76%);
+      transform: rotate(-1deg);
+      filter: drop-shadow(18px 28px 22px rgba(0,0,0,.55));
+      animation: tvSettle 7s ease-in-out infinite;
+    }
+
+    @keyframes tvSettle {
+      0%, 100% { transform: rotate(-1deg) translateY(0); }
+      50% { transform: rotate(-.7deg) translateY(-3px); }
+    }
+
+    .tv {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 105px;
+      gap: 12px;
+      padding: 19px 17px 20px 20px;
+      border-radius: 13px 17px 15px 11px;
+      border: 3px solid #4b2c19;
+      background:
+        repeating-linear-gradient(2deg, transparent 0 8px, rgba(255,195,112,.045) 9px 11px),
+        linear-gradient(110deg, #7b4c2c 0%, #432817 17%, #714323 36%, #392316 62%, #5c371f 85%, #28180f 100%);
+      box-shadow:
+        inset 0 0 0 3px rgba(0,0,0,.55),
+        inset 0 0 14px 4px rgba(0,0,0,.55),
+        0 8px 0 #1a100a;
+    }
+
+    /* Worn corners and scratches */
+    .tv::before {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      z-index: 3;
+      pointer-events: none;
+      border-radius: 9px;
+      background:
+        radial-gradient(ellipse at 0 0, rgba(226,177,116,.55), transparent 10%),
+        radial-gradient(ellipse at 100% 100%, rgba(0,0,0,.6), transparent 13%),
+        repeating-linear-gradient(112deg, transparent 0 53px, rgba(10,5,2,.25) 54px 56px, transparent 57px 91px);
+      mix-blend-mode: screen;
+      opacity: .7;
+    }
+
+    .tv-screen-frame {
+      min-width: 0;
+      padding: 12px;
+      border-radius: 18px 25px 23px 16px;
+      background: linear-gradient(140deg, #1b120d, #55351f 35%, #120d09);
+      box-shadow: inset 0 0 0 2px rgba(0,0,0,.7);
+    }
+
+    .tv-screen {
+      position: relative;
+      min-height: 285px;
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      isolation: isolate;
+      border-radius: 48% 45% 43% 46% / 8% 8% 9% 9%;
+      background: #252321;
+      box-shadow:
+        inset 0 0 22px 7px #000,
+        0 0 0 3px #100d0a;
+    }
+
+    /* Actual animated static: SVG noise moves over the screen */
+    .tv-screen::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: -30%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E");
+      background-size: 190px 190px;
+      opacity: .63;
+      mix-blend-mode: screen;
+      animation: tvStatic .22s steps(3, end) infinite;
+    }
+
+    @keyframes tvStatic {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(-5%, 2%); }
+      50% { transform: translate(3%, -4%); }
+      75% { transform: translate(4%, 5%); }
+      100% { transform: translate(-2%, -3%); }
+    }
+
+    .tv-screen::after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(0deg, rgba(0,0,0,.28) 0 2px, transparent 2px 4px),
+        linear-gradient(90deg, rgba(0,0,0,.45), transparent 20% 78%, rgba(0,0,0,.45)),
+        radial-gradient(ellipse, transparent 43%, rgba(0,0,0,.55) 100%);
+      animation: tvFlicker 2.6s infinite;
+    }
+
+    @keyframes tvFlicker {
+      0%, 18%, 20%, 55%, 57%, 100% { opacity: .8; }
+      19%, 56% { opacity: .45; }
+      72% { opacity: .92; }
+    }
+
+    .screen-copy {
+      z-index: 2;
+      padding: 20px;
+      text-align: center;
+      color: #fff3df;
+      font-family: "Special Elite", Georgia, serif;
+      font-size: clamp(17px, 3vw, 32px);
+      line-height: 1.22;
+      letter-spacing: -.06em;
+      text-shadow: 0 0 8px rgba(255, 241, 217, .7);
+      transform: scaleX(.95);
+      animation: screenGlitch 5s infinite;
+    }
+
+    .screen-copy span {
+      color: #f1d8b6;
+    }
+
+    @keyframes screenGlitch {
+      0%, 88%, 90%, 100% { transform: translateX(0) skewX(0); }
+      89% { transform: translateX(3px) skewX(-2deg); }
+      91% { transform: translateX(-2px) skewX(1deg); }
+    }
+
+    /* TV controls */
+    .tv-controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 7px 2px;
+      color: #c59a68;
+    }
+
+    .tv-brand {
+      font-family: "Special Elite", Georgia, serif;
+      font-size: 8px;
+      letter-spacing: .2em;
+      color: #d3a779;
+      text-align: center;
+    }
+
+    .tv-dial {
+      width: 53px;
+      height: 53px;
+      border: 5px ridge #68472c;
+      border-radius: 50%;
+      background:
+        repeating-conic-gradient(#21170f 0deg 8deg, #a77b4d 9deg 12deg, #3c2819 13deg 20deg);
+      box-shadow: inset 0 0 0 3px #24170e, 0 3px 4px #140d08;
+      position: relative;
+    }
+
+    .tv-dial::after {
+      content: "";
+      position: absolute;
+      width: 3px;
+      height: 14px;
+      top: 3px;
+      left: 20px;
+      background: #e5c398;
+      transform: rotate(26deg);
+      transform-origin: bottom;
+    }
+
+    .tv-knobs {
+      display: flex;
+      gap: 9px;
+    }
+
+    .tv-knobs span {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      border: 3px ridge #81552f;
+      background: #24180f;
+    }
+
+    .tv-speaker {
+      width: 61px;
+      height: 65px;
+      border: 1px solid rgba(0,0,0,.3);
+      background: repeating-linear-gradient(0deg, #21170f 0 2px, #614027 3px 4px);
+    }
+
+    .tv-led {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--orange);
+      box-shadow: 0 0 8px var(--orange);
+      animation: ledBlink 2s infinite;
+    }
+
+    @keyframes ledBlink {
+      50% { opacity: .35; }
+    }
+
+    .tv-legs {
       display: flex;
       justify-content: space-between;
-      align-items: end;
-      gap: 28px;
-      margin-bottom: 42px;
+      padding: 0 30px;
     }
 
-    .shop-intro h2 {
-      max-width: 760px;
+    .tv-legs span {
+      width: 30px;
+      height: 20px;
+      background: linear-gradient(90deg, #28180e, #674126, #20140c);
+      transform: skewX(-12deg);
     }
 
-    .shop-note {
-      max-width: 260px;
-      margin: 0 0 4px;
-      color: var(--muted);
-      font-size: 12px;
+    /* Collection separator */
+    .collection-divider {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 30px 4% 25px;
+      color: var(--orange);
+      font-family: "Special Elite", Georgia, serif;
+      font-size: 13px;
+      letter-spacing: .13em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .collection-divider::before,
+    .collection-divider::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      background: var(--cream);
+      opacity: .7;
+    }
+
+    .collection-divider .star {
+      color: var(--cream);
+      font-size: 22px;
+    }
+
+    /* PRODUCT SECTION */
+    .collection {
+      padding: 0 3.8% 65px;
     }
 
     .product-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 34px 18px;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 14px;
     }
 
-    .product-card {
+    .product {
       min-width: 0;
+      cursor: default;
     }
 
     .product-frame {
       aspect-ratio: 4 / 5;
       display: flex;
-      align-items: center;
       justify-content: center;
-      position: relative;
+      align-items: center;
       overflow: hidden;
-      border: 1px solid rgba(242, 238, 232, .22);
-      background: linear-gradient(145deg, #242424, #191919 70%);
-      transition: border-color .25s ease, background .25s ease;
+      position: relative;
+      border: 1px solid #806d55;
+      border-radius: 6px;
+      background:
+        radial-gradient(ellipse at 50% 30%, rgba(233,216,187,.09), transparent 55%),
+        linear-gradient(145deg, #24221e, #121210);
+      transition: border-color .25s, transform .25s;
+    }
+
+    .product:hover .product-frame {
+      border-color: var(--orange);
+      transform: translateY(-4px);
     }
 
     .product-frame::before {
       content: "";
       position: absolute;
-      inset: 12px;
-      border: 1px solid rgba(242, 238, 232, .08);
+      inset: 8px;
+      border: 1px solid rgba(233,216,187,.09);
       pointer-events: none;
     }
 
-    .product-frame::after {
-      content: "SAMPLE / 001";
-      position: absolute;
-      left: 22px;
-      bottom: 20px;
-      color: rgba(242, 238, 232, .4);
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: .18em;
-    }
-
-    .product-card:hover .product-frame {
-      border-color: var(--orange);
-      background: linear-gradient(145deg, #2a251f, #191919 70%);
-    }
-
     .product-placeholder {
-      padding: 20px;
-      color: var(--paper);
-      font-family: var(--font-display);
-      font-size: clamp(17px, 2.4vw, 29px);
-      font-weight: 700;
-      letter-spacing: -.08em;
-      line-height: .95;
+      text-align: center;
+      padding: 10px;
+      color: var(--cream);
+      font-family: "Special Elite", Georgia, serif;
+      font-size: clamp(12px, 1.5vw, 19px);
+      line-height: 1.3;
+      letter-spacing: -.04em;
+      text-transform: uppercase;
+    }
+
+    .product-placeholder .symbol {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--orange);
+      font-family: "Space Grotesk", Arial, sans-serif;
+      font-size: 34px;
+      opacity: .85;
+    }
+
+    .product-name {
+      padding: 8px 5px 6px;
+      background: var(--cream);
+      color: #17120e;
+      border-radius: 0 0 5px 5px;
+      font-family: "Special Elite", Georgia, serif;
+      font-size: clamp(10px, 1.1vw, 13px);
       text-align: center;
       text-transform: uppercase;
     }
 
-    .product-placeholder span {
-      color: var(--orange);
-    }
-
-    .product-name {
-      margin: 13px 0 0;
-      font-family: var(--font-display);
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: -.025em;
-    }
-
     .product-status {
-      margin-top: 3px;
+      padding-top: 8px;
       color: var(--muted);
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: .13em;
+      font-size: 8px;
+      text-align: center;
+      letter-spacing: .12em;
       text-transform: uppercase;
-    }
-
-    /* Brand story */
-    .story-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(280px, .75fr);
-      gap: clamp(38px, 9vw, 130px);
-      margin-top: 54px;
-      align-items: start;
-    }
-
-    .story-lead {
-      margin: 0;
-      font-family: var(--font-display);
-      font-size: clamp(23px, 3vw, 36px);
-      line-height: 1.22;
-      letter-spacing: -.04em;
-    }
-
-    .story-lead span {
-      color: var(--orange);
-    }
-
-    .story-body {
-      color: var(--grey-light);
-      font-size: 14px;
-    }
-
-    .story-body p {
-      margin: 0 0 18px;
-    }
-
-    .story-signoff {
-      margin-top: 30px;
-      padding-top: 20px;
-      border-top: 1px solid var(--line);
-      color: var(--paper);
-      font-family: var(--font-display);
-      font-size: 17px;
-      font-weight: 700;
-      letter-spacing: -.02em;
-    }
-
-    .story-signoff span {
-      color: var(--orange);
-    }
-
-    /* Philosophy section */
-    .manifesto {
-      background: var(--paper);
-      color: var(--black);
-    }
-
-    .manifesto-inner {
-      width: min(1220px, calc(100% - 48px));
-      margin: 0 auto;
-      padding: 78px 0 86px;
-    }
-
-    .manifesto .section-label {
-      color: var(--brown);
-    }
-
-    .manifesto h2 {
-      max-width: 1050px;
-    }
-
-    .manifesto h2 span {
-      color: var(--brown);
-    }
-
-    .manifesto-foot {
-      display: flex;
-      justify-content: space-between;
-      gap: 24px;
-      margin-top: 46px;
-      padding-top: 20px;
-      border-top: 1px solid rgba(23, 23, 23, .2);
-      color: #5f5b56;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-    }
-
-    /* Contact section */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr minmax(260px, .75fr);
-      gap: 50px;
-      align-items: end;
-      margin-top: 44px;
-    }
-
-    .contact-copy {
-      max-width: 470px;
-      color: var(--grey-light);
-      font-size: 14px;
-    }
-
-    .contact-card {
-      padding: 26px;
-      border: 1px solid var(--line);
-      background: var(--black-soft);
-    }
-
-    .contact-card-label {
-      margin-bottom: 14px;
-      color: var(--grey);
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-    }
-
-    .email-link {
-      display: inline-block;
-      color: var(--paper);
-      font-family: var(--font-display);
-      font-size: clamp(15px, 2vw, 21px);
-      font-weight: 600;
-      letter-spacing: -.04em;
-      overflow-wrap: anywhere;
-      transition: color .2s ease;
-    }
-
-    .email-link:hover {
-      color: var(--orange);
-    }
-
-    .contact-note {
-      margin-top: 14px;
-      color: var(--muted);
-      font-size: 11px;
     }
 
     /* Footer */
-    footer {
-      border-top: 1px solid var(--line);
-      background: #111;
-    }
-
-    .footer-inner {
-      width: min(1220px, calc(100% - 48px));
-      min-height: 104px;
-      margin: 0 auto;
+    .footer {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 24px;
-    }
-
-    .footer-tagline {
-      color: var(--grey);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .14em;
+      align-items: center;
+      gap: 18px;
+      padding: 22px 4%;
+      border-top: 1px solid rgba(233,216,187,.15);
+      color: var(--muted);
+      font-size: 9px;
+      letter-spacing: .1em;
       text-transform: uppercase;
     }
 
-    .footer-small {
-      color: #77736e;
-      font-size: 10px;
+    .footer .brand {
+      font-size: 17px;
+    }
+
+    .footer .tagline {
       text-align: right;
     }
 
-    /* Mobile layout */
-    @media (max-width: 720px) {
-      .site-header {
-        width: min(100% - 32px, 1220px);
-        min-height: 76px;
-        flex-wrap: wrap;
-        padding: 17px 0;
-      }
-
-      .wordmark {
-        font-size: 19px;
-      }
-
-      nav {
-        width: 100%;
-        justify-content: space-between;
+    /* MOBILE */
+    @media (max-width: 850px) {
+      .topbar {
+        grid-template-columns: 1fr auto;
         gap: 10px;
       }
 
-      nav a {
-        font-size: 9px;
-        letter-spacing: .1em;
+      .topbar > .brand {
+        grid-column: 1 / -1;
+        grid-row: 1;
       }
 
-      .hero,
-      .section,
-      .manifesto-inner,
-      .footer-inner {
-        width: min(100% - 32px, 1220px);
+      .nav {
+        grid-column: 1;
+        grid-row: 2;
+      }
+
+      .nav-right {
+        grid-column: 2;
+        grid-row: 2;
       }
 
       .hero {
-        min-height: 670px;
-        padding: 70px 0 54px;
+        min-height: 570px;
+        height: 75vw;
       }
 
-      .hero h1 {
-        margin-top: 48px;
-        font-size: clamp(50px, 13vw, 88px);
+      .tv-wrap {
+        width: 84%;
       }
 
-      .hero-bottom {
-        align-items: start;
-        flex-direction: column;
+      .tv {
+        grid-template-columns: minmax(0, 1fr) 75px;
+        gap: 7px;
+        padding: 13px;
       }
 
-      .hero-copy {
-        font-size: 14px;
+      .tv-screen {
+        min-height: 230px;
       }
 
-      .section {
-        padding: 78px 0;
+      .tv-dial {
+        width: 42px;
+        height: 42px;
       }
 
-      .story-grid,
-      .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 28px;
-        margin-top: 36px;
-      }
-
-      .shop-intro {
-        align-items: start;
-        flex-direction: column;
-        gap: 14px;
-      }
-
-      .shop-note {
-        max-width: 360px;
+      .tv-speaker {
+        width: 48px;
+        height: 50px;
       }
 
       .product-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 26px 12px;
-      }
-
-      .product-frame::before {
-        inset: 8px;
-      }
-
-      .product-frame::after {
-        left: 15px;
-        bottom: 14px;
-        font-size: 7px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 20px 12px;
       }
 
       .product-placeholder {
-        font-size: clamp(15px, 4vw, 23px);
-        padding: 12px;
-      }
-
-      .manifesto-inner {
-        padding: 66px 0;
-      }
-
-      .manifesto-foot {
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .footer-inner {
-        align-items: start;
-        flex-direction: column;
-        justify-content: center;
-        padding: 25px 0;
-        gap: 8px;
-      }
-
-      .footer-small {
-        text-align: left;
-      }
-
-      .hero::after {
-        top: 20%;
-        right: -10%;
-        font-size: 62vw;
+        font-size: clamp(12px, 2.3vw, 19px);
       }
     }
 
-    /* Respect reduced-motion preferences for scrolling and transitions,
-       while keeping the requested logo color cycle running. */
+    @media (max-width: 520px) {
+      .topbar {
+        padding: 13px 15px;
+      }
+
+      .nav {
+        gap: 13px;
+      }
+
+      .nav a {
+        font-size: 9px;
+        letter-spacing: .07em;
+      }
+
+      .brand {
+        font-size: 20px;
+      }
+
+      .nav-right {
+        gap: 2px;
+      }
+
+      .hero {
+        min-height: 535px;
+        height: auto;
+        padding: 50px 10px 95px;
+      }
+
+      .room-poster {
+        top: 7%;
+        right: 2%;
+        width: 29%;
+        height: 23%;
+        font-size: 9px;
+      }
+
+      .tv-wrap {
+        width: 96%;
+        margin-top: 20px;
+      }
+
+      .tv {
+        grid-template-columns: minmax(0, 1fr) 57px;
+        gap: 5px;
+        padding: 9px;
+        border-width: 2px;
+      }
+
+      .tv-screen-frame {
+        padding: 7px;
+      }
+
+      .tv-screen {
+        min-height: 210px;
+      }
+
+      .screen-copy {
+        font-size: clamp(15px, 4.3vw, 23px);
+        padding: 10px;
+      }
+
+      .tv-controls {
+        gap: 10px;
+      }
+
+      .tv-dial {
+        width: 35px;
+        height: 35px;
+        border-width: 4px;
+      }
+
+      .tv-dial::after {
+        left: 13px;
+      }
+
+      .tv-speaker {
+        width: 38px;
+        height: 47px;
+      }
+
+      .tv-knobs {
+        gap: 5px;
+      }
+
+      .tv-knobs span {
+        width: 12px;
+        height: 12px;
+      }
+
+      .hero-caption {
+        right: 15px;
+        bottom: 17px;
+        width: 180px;
+        font-size: 9px;
+      }
+
+      .scroll-note {
+        bottom: 25px;
+        left: 15px;
+      }
+
+      .collection-divider {
+        padding: 26px 15px 22px;
+        font-size: 11px;
+        gap: 10px;
+      }
+
+      .collection {
+        padding: 0 12px 42px;
+      }
+
+      .product-grid {
+        gap: 17px 9px;
+      }
+
+      .product-frame::before {
+        inset: 5px;
+      }
+
+      .product-placeholder {
+        font-size: 12px;
+        padding: 7px;
+      }
+
+      .product-placeholder .symbol {
+        font-size: 25px;
+      }
+
+      .product-name {
+        font-size: 10px;
+        padding: 8px 2px;
+      }
+
+      .footer {
+        padding: 20px 15px;
+        flex-wrap: wrap;
+        font-size: 8px;
+      }
+
+      .footer .tagline {
+        width: 100%;
+        text-align: left;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       html {
         scroll-behavior: auto;
       }
 
-      *, *::before, *::after {
-        transition: none !important;
+      .tv-wrap,
+      .tv-screen::before,
+      .tv-screen::after,
+      .screen-copy,
+      .sound-toggle span,
+      .tv-led {
+        animation-duration: 8s;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="announcement">
-    Nothing stays the same. Life moves on.
-  </div>
-
-  <header class="site-header">
-    <a class="wordmark" href="#top" aria-label="GoodnBadMemories home"><span class="logo-red">Goodn</span><span class="logo-white">Bad</span><span class="logo-orange">Memories</span></a>
-
-    <nav aria-label="Main navigation">
-      <a href="#shop">Pieces</a>
-      <a href="#story">The Story</a>
-      <a href="#philosophy">The Philosophy</a>
+  <header class="topbar">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="#collection">Shop</a>
+      <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </nav>
+
+    <a class="brand" href="#home" aria-label="GoodnBadMemories home">
+      <span class="changing">Goodn</span><span class="white">Bad</span><span class="orange">Memories</span>
+    </a>
+
+    <div class="nav-right">
+      <button class="sound-toggle" type="button" aria-label="Decorative animated equalizer" title="Life, worn.">
+        <span></span><span></span><span></span><span></span>
+      </button>
+    </div>
   </header>
 
-  <main id="top">
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="eyebrow">A clothing label shaped by life</div>
+  <main>
+    <section class="hero" id="home" aria-label="GoodnBadMemories campaign">
+      <div class="room-wall"></div>
+      <div class="room-light"></div>
 
-      <h1 id="hero-title">
-        Nothing stays<br>the same.
-        <span>Life moves on.</span>
-      </h1>
+      <div class="room-poster" aria-hidden="true">
+        KEEP MOVING
+        <strong>GOOD TIMES<br>BAD TIMES<br>SAME LIFE.</strong>
+      </div>
 
-      <div class="hero-bottom">
-        <p class="hero-copy">
-          <strong>Life, worn.</strong> Clothing inspired by the moments
-          that change us, the feelings we carry, and the memories that
-          stay long after the moment has passed.
-        </p>
+      <div class="tv-wrap">
+        <div class="tv">
+          <div class="tv-screen-frame">
+            <div class="tv-screen">
+              <div class="screen-copy">
+                NOTHING STAYS<br>
+                <span>THE SAME.</span><br><br>
+                LIFE MOVES ON.
+              </div>
+            </div>
+          </div>
 
-        <div class="hero-actions">
-          <a class="button" href="#story">Discover the story</a>
-          <a class="button secondary" href="#contact">Get in touch ↗</a>
+          <div class="tv-controls">
+            <div class="tv-brand">GBM / 01</div>
+            <div class="tv-dial"></div>
+            <div class="tv-knobs"><span></span><span></span></div>
+            <div class="tv-speaker"></div>
+            <div class="tv-led"></div>
+          </div>
         </div>
+
+        <div class="tv-legs">
+          <span></span><span></span>
+        </div>
+      </div>
+
+      <div class="room-floor"></div>
+
+      <div class="scroll-note">Scroll to explore</div>
+
+      <div class="hero-caption">
+        <strong>Clothes for the moments that change you.</strong>
+        <span>GOODNBADMEMORIES / LIFE, WORN.</span>
       </div>
     </section>
 
-    <div class="ticker" aria-label="Brand philosophy">
-      <div class="ticker-inner">
-        <span>GoodnBadMemories</span> · Life, worn. · Every moment leaves something behind. ·
-        <span>GoodnBadMemories</span> · Life, worn. · Every moment leaves something behind. ·
-      </div>
+    <div class="collection-divider" id="collection">
+      <span class="star">✳</span>
+      <span>The Collection</span>
+      <span class="star">▧</span>
     </div>
 
-    <section class="section" id="shop" aria-labelledby="shop-title">
-      <div class="section-label">01 / The pieces</div>
+    <section class="collection" aria-label="Upcoming collection">
+      <div class="product-grid">
 
-      <div class="shop-intro">
-        <h2 id="shop-title">The first pieces are taking shape.</h2>
-        <p class="shop-note">
-          A preview of what’s in the works. Product photography and
-          details will be added as each piece comes together.
-        </p>
-      </div>
-
-      <div class="product-grid" aria-label="Upcoming GoodnBadMemories products">
-
-        <article class="product-card">
+        <article class="product">
           <div class="product-frame">
-            <div class="product-placeholder">GoodnBad<br><span>Memories</span></div>
+            <div class="product-placeholder">
+              <span class="symbol">✳</span>
+              GOODNBAD<br>MEMORIES
+            </div>
           </div>
-          <h3 class="product-name">Onyx Backpack</h3>
-          <div class="product-status">In development</div>
+          <div class="product-name">Onyx Backpack</div>
+          <div class="product-status">Coming soon</div>
         </article>
 
-        <article class="product-card">
+        <article class="product">
           <div class="product-frame">
-            <div class="product-placeholder">GoodnBad<br><span>Memories</span></div>
+            <div class="product-placeholder">
+              <span class="symbol">✳</span>
+              GOODNBAD<br>MEMORIES
+            </div>
           </div>
-          <h3 class="product-name">Hoodie</h3>
-          <div class="product-status">In development</div>
+          <div class="product-name">Hoodie</div>
+          <div class="product-status">Coming soon</div>
         </article>
 
-        <article class="product-card">
+        <article class="product">
           <div class="product-frame">
-            <div class="product-placeholder">GoodnBad<br><span>Memories</span></div>
+            <div class="product-placeholder">
+              <span class="symbol">✳</span>
+              GOODNBAD<br>MEMORIES
+            </div>
           </div>
-          <h3 class="product-name">Jeans</h3>
-          <div class="product-status">In development</div>
+          <div class="product-name">Jeans</div>
+          <div class="product-status">Coming soon</div>
         </article>
 
-        <article class="product-card">
+        <article class="product">
           <div class="product-frame">
-            <div class="product-placeholder">GoodnBad<br><span>Memories</span></div>
+            <div class="product-placeholder">
+              <span class="symbol">✳</span>
+              GOODNBAD<br>MEMORIES
+            </div>
           </div>
-          <h3 class="product-name">Belts</h3>
-          <div class="product-status">In development</div>
+          <div class="product-name">Belts</div>
+          <div class="product-status">Coming soon</div>
         </article>
 
-        <article class="product-card">
+        <article class="product">
           <div class="product-frame">
-            <div class="product-placeholder">GoodnBad<br><span>Memories</span></div>
+            <div class="product-placeholder">
+              <span class="symbol">✳</span>
+              GOODNBAD<br>MEMORIES
+            </div>
           </div>
-          <h3 class="product-name">Glasses</h3>
-          <div class="product-status">In development</div>
+          <div class="product-name">Glasses</div>
+          <div class="product-status">Coming soon</div>
         </article>
 
-        <article class="product-card">
+        <article class="product">
           <div class="product-frame">
-            <div class="product-placeholder">GoodnBad<br><span>Memories</span></div>
+            <div class="product-placeholder">
+              <span class="symbol">✳</span>
+              GOODNBAD<br>MEMORIES
+            </div>
           </div>
-          <h3 class="product-name">Beanies</h3>
-          <div class="product-status">In development</div>
+          <div class="product-name">Beanies</div>
+          <div class="product-status">Coming soon</div>
         </article>
 
-      </div>
-    </section>
-
-    <section class="section" id="story" aria-labelledby="story-title">
-      <div class="section-label">01 / The story behind the label</div>
-      <h2 id="story-title">Life doesn't stop happening.</h2>
-
-      <div class="story-grid">
-        <p class="story-lead">
-          A new beginning. A final goodbye. A loss you never saw coming.
-          A job that changes everything. A home lost overnight. A marriage.
-          A birth. A moment of darkness.
-          <span>A reason to keep going.</span>
-        </p>
-
-        <div class="story-body">
-          <p>
-            Every day leaves something behind. Some moments we celebrate.
-            Others we struggle to make sense of. But every experience
-            becomes part of who we are.
-          </p>
-
-          <p><strong>GoodnBadMemories was created from that reality.</strong></p>
-
-          <p>
-            We translate the raw, unfiltered experiences of being alive
-            into clothing — pieces that represent the moments, emotions,
-            and memories that make us who we are.
-          </p>
-
-          <p>
-            Because life isn't always beautiful. It isn't always fair.
-            And it never stays the same.
-          </p>
-
-          <div class="story-signoff">
-            Wear what life leaves behind<span>.</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="manifesto" id="philosophy" aria-labelledby="manifesto-title">
-      <div class="manifesto-inner">
-        <div class="section-label">02 / The philosophy</div>
-
-        <h2 id="manifesto-title">
-          For the moments that make us.
-          <span>And the ones that remake us.</span>
-        </h2>
-
-        <div class="manifesto-foot">
-          <span>GoodnBadMemories</span>
-          <span>Life, worn.</span>
-          <span>Est. in the moments</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="contact" aria-labelledby="contact-title">
-      <div class="section-label">03 / Contact</div>
-      <h2 id="contact-title">Every good connection starts somewhere.</h2>
-
-      <div class="contact-grid">
-        <p class="contact-copy">
-          For brand inquiries, creative collaborations, or questions about
-          GoodnBadMemories, reach out directly. We’ll get back to you as
-          soon as we can.
-        </p>
-
-        <div class="contact-card">
-          <div class="contact-card-label">
-            General inquiries · Collaborations · Brand contact
-          </div>
-
-          <a class="email-link" href="mailto:GoodnBadMemories001@gmail.com">
-            GoodnBadMemories001@gmail.com
-          </a>
-
-          <div class="contact-note">GoodnBadMemories — Life, worn.</div>
-        </div>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="footer-inner">
-      <a class="wordmark" href="#top" aria-label="GoodnBadMemories home"><span class="logo-red">Goodn</span><span class="logo-white">Bad</span><span class="logo-orange">Memories</span></a>
+  <footer class="footer" id="contact">
+    <a class="brand" href="#home">
+      <span class="changing">Goodn</span><span class="white">Bad</span><span class="orange">Memories</span>
+    </a>
 
-      <div class="footer-tagline">
-        Nothing stays the same. Life moves on.
-      </div>
+    <div id="about">Nothing stays the same. Life moves on.</div>
 
-      <div class="footer-small">
-        © <span id="year"></span> GoodnBadMemories. All moments leave a mark.
-      </div>
-    </div>
+    <a href="mailto:GoodnBadMemories001@gmail.com">
+      Contact ↗
+    </a>
+
+    <div class="tagline">© <span id="year"></span> GoodnBadMemories</div>
   </footer>
 
   <script>
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
