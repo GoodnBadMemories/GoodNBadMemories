@@ -3,309 +3,328 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GoodnBadMemories — The Room</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GoodnBadMemories — Enter the Room</title>
+
 <style>
 * { box-sizing: border-box; }
+
 html, body {
   margin: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: #111;
-  color: #f5f0e8;
+  background: #080706;
+  color: #f4e8d8;
   font-family: Arial, sans-serif;
 }
-canvas { display: block; }
-#top {
-  position: fixed; top: 22px; left: 24px; z-index: 2;
-  pointer-events: none;
+
+#scene {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: #080706;
 }
-#top h1 {
-  margin: 0; font-size: clamp(16px, 3vw, 25px);
+
+#roomImage {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1);
+  transition: transform 1.8s cubic-bezier(.2,.75,.2,1),
+              filter 1.8s ease;
+  will-change: transform;
+}
+
+#shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,.48),
+    transparent 20%,
+    transparent 65%,
+    rgba(0,0,0,.3)
+  );
+}
+
+#brand {
+  position: absolute;
+  top: 22px;
+  left: 25px;
+  z-index: 3;
+  font-size: 12px;
   letter-spacing: 3px;
 }
-#top p {
-  margin: 7px 0; color: #c9a17a;
-  font-size: 10px; letter-spacing: 3px;
+
+#brand span {
+  display: block;
+  margin-top: 8px;
+  color: #c98243;
+  font-size: 9px;
 }
-#hint {
-  position: fixed; bottom: 22px; left: 50%;
-  transform: translateX(-50%); z-index: 2;
-  padding: 11px 17px; border: 1px solid #ffffff35;
-  background: #111a; border-radius: 30px;
-  font-size: 11px; letter-spacing: 1px;
-  white-space: nowrap; pointer-events: none;
-}
-#message {
-  position: fixed; left: 50%; top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 3; display: none; width: min(340px, 85vw);
-  padding: 25px; text-align: center;
-  background: #171513ee; border: 1px solid #c98243;
-  box-shadow: 0 12px 50px #0009;
-}
-#message h2 { color: #e7a15f; font-size: 20px; }
-#message p { line-height: 1.6; font-size: 14px; color: #ddd; }
-#close {
-  margin-top: 10px; padding: 10px 20px; cursor: pointer;
-  background: #c98243; border: 0; color: #111;
-  font-weight: bold;
-}
+
 #back {
-  position: fixed; right: 22px; top: 22px; z-index: 2;
-  color: #eee; text-decoration: none; font-size: 12px;
-  letter-spacing: 1px; border: 1px solid #ffffff50;
-  padding: 10px 13px; background: #1119;
+  position: absolute;
+  right: 22px;
+  top: 22px;
+  z-index: 5;
+  padding: 11px 14px;
+  border: 1px solid #cbb9a266;
+  color: #f4e8d8;
+  text-decoration: none;
+  background: #08070699;
+  font-size: 11px;
+  letter-spacing: 1px;
 }
-#loading {
-  position: fixed; inset: 0; display: grid;
-  place-items: center; z-index: 5; background: #111;
-  color: #e7a15f; letter-spacing: 3px; font-size: 12px;
+
+.hotspot {
+  position: absolute;
+  z-index: 2;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: border-color .3s, background .3s, box-shadow .3s;
+}
+
+.hotspot:hover,
+.hotspot:focus-visible {
+  border-color: #d68a4a99;
+  background: #d68a4a13;
+  box-shadow: 0 0 25px #d68a4a22;
+  outline: none;
+}
+
+#shop {
+  left: 4%;
+  top: 55%;
+  width: 23%;
+  height: 7%;
+}
+
+#story {
+  left: 4%;
+  top: 61%;
+  width: 23%;
+  height: 7%;
+}
+
+#contact {
+  left: 4%;
+  top: 67%;
+  width: 23%;
+  height: 7%;
+}
+
+#new {
+  left: 4%;
+  top: 73%;
+  width: 23%;
+  height: 7%;
+}
+
+#tv {
+  left: 30%;
+  top: 20%;
+  width: 48%;
+  height: 55%;
+}
+
+#status {
+  position: absolute;
+  left: 50%;
+  bottom: 25px;
+  transform: translateX(-50%);
+  z-index: 4;
+  padding: 12px 18px;
+  background: #090807d9;
+  border: 1px solid #c9824366;
+  color: #e6c4a1;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-align: center;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity .4s;
+  pointer-events: none;
+}
+
+#status.visible { opacity: 1; }
+
+#panel {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  background: #080706e8;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .6s, visibility .6s;
+}
+
+#panel.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+#panelContent {
+  width: min(480px, 100%);
+  text-align: center;
+}
+
+#panelEyebrow {
+  color: #c98243;
+  font-size: 10px;
+  letter-spacing: 4px;
+}
+
+#panelTitle {
+  font-size: clamp(28px, 6vw, 54px);
+  margin: 18px 0;
+  font-weight: 500;
+}
+
+#panelText {
+  color: #c6b9ab;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+#panelButton {
+  margin-top: 25px;
+  padding: 13px 22px;
+  border: 1px solid #c98243;
+  color: #f4e8d8;
+  background: transparent;
+  cursor: pointer;
+  letter-spacing: 2px;
+  font-size: 10px;
+}
+
+#panelButton:hover { background: #c9824322; }
+
+@media (max-width: 600px) {
+  #brand { top: 17px; left: 14px; font-size: 10px; }
+  #back { top: 14px; right: 12px; font-size: 9px; }
+  #shop, #story, #contact, #new {
+    left: 3%;
+    width: 26%;
+  }
+  #tv { left: 29%; width: 51%; }
+  #status { bottom: 16px; font-size: 8px; }
 }
 </style>
 </head>
+
 <body>
-<div id="loading">ENTERING THE ROOM...</div>
+<div id="scene">
+  <img
+    id="roomImage"
+    src="./GoodnBadMemories_%20Nothing%20Stays%20the%20Same-1.png"
+    alt="The GoodnBadMemories room"
+  >
 
-<div id="top">
-  <h1>GOODN BAD MEMORIES</h1>
-  <p>NOTHING STAYS THE SAME.</p>
+  <div id="shade"></div>
+
+  <div id="brand">
+    GOODNBADMEMORIES
+    <span>NOTHING STAYS THE SAME.</span>
+  </div>
+
+  <a id="back" href="./index.html">← MAIN WEBSITE</a>
+
+  <button class="hotspot" id="shop" aria-label="Explore Shop" data-room="shop"></button>
+  <button class="hotspot" id="story" aria-label="Explore Story" data-room="story"></button>
+  <button class="hotspot" id="contact" aria-label="Explore Contact" data-room="contact"></button>
+  <button class="hotspot" id="new" aria-label="Explore New Arrivals" data-room="new"></button>
+  <button class="hotspot" id="tv" aria-label="Enter the television" data-room="tv"></button>
+
+  <div id="status">ENTERING ANOTHER MEMORY...</div>
+
+  <div id="panel">
+    <div id="panelContent">
+      <div id="panelEyebrow">GOODNBADMEMORIES · HIDDEN SPACE</div>
+      <h1 id="panelTitle">THE NEXT CHAPTER</h1>
+      <p id="panelText"></p>
+      <button id="panelButton">RETURN TO THE ROOM</button>
+    </div>
+  </div>
 </div>
 
-<a id="back" href="./index.html">← BACK TO SITE</a>
+<script>
+const image = document.getElementById("roomImage");
+const status = document.getElementById("status");
+const panel = document.getElementById("panel");
 
-<div id="hint">CLICK AN OBJECT TO EXPLORE</div>
+const destinations = {
+  shop: {
+    title: "THE COLLECTION",
+    text: "Every piece holds a feeling, a chapter, or a moment. This is where the collection will live.",
+    zoom: "scale(2.3) translate(-20%, 4%)"
+  },
+  story: {
+    title: "THE MEMORY ROOM",
+    text: "Some memories hurt. Some make us smile. All of them become part of who we are.",
+    zoom: "scale(2.4) translate(-18%, -8%)"
+  },
+  contact: {
+    title: "LEAVE A MESSAGE",
+    text: "Every story starts somewhere. This space will connect you with GoodnBadMemories.",
+    zoom: "scale(2.2) translate(-22%, -10%)"
+  },
+  new: {
+    title: "JUST ARRIVED",
+    text: "A new chapter is always beginning. Discover the latest pieces from GoodnBadMemories.",
+    zoom: "scale(2.5) translate(-18%, 0%)"
+  },
+  tv: {
+    title: "NOTHING STAYS THE SAME",
+    text: "The screen flickers. The room goes quiet. Somewhere beyond this picture, another memory is waiting to be discovered.",
+    zoom: "scale(3.1) translate(1%, 4%)"
+  }
+};
 
-<div id="message">
-  <h2 id="messageTitle">A MEMORY</h2>
-  <p id="messageText"></p>
-  <button id="close">CLOSE</button>
-</div>
+document.querySelectorAll("[data-room]").forEach(button => {
+  button.addEventListener("click", () => {
+    const destination = destinations[button.dataset.room];
+    if (!destination) return;
 
-<script type="module">
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+    status.classList.add("visible");
+    image.style.transform = destination.zoom;
+    image.style.filter = "brightness(.45)";
 
-const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x171614);
-scene.fog = new THREE.Fog(0x171614, 10, 24);
-
-const camera = new THREE.PerspectiveCamera(
-  55, window.innerWidth / window.innerHeight, 0.1, 100
-);
-camera.position.set(0, 3.1, 8.5);
-camera.lookAt(0, 1.5, 0);
-
-const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-renderer.outputColorSpace = THREE.SRGBColorSpace;
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.15;
-document.body.appendChild(renderer.domElement);
-
-scene.add(new THREE.HemisphereLight(0xc9b9a3, 0x29211b, 2));
-
-const warmLight = new THREE.PointLight(0xffa65c, 32, 12);
-warmLight.position.set(-2, 3.2, 1);
-scene.add(warmLight);
-
-const lampLight = new THREE.PointLight(0xffbd78, 18, 7);
-lampLight.position.set(2.1, 2.8, -0.2);
-scene.add(lampLight);
-
-const objects = [];
-const material = (color, roughness = 0.8) =>
-  new THREE.MeshStandardMaterial({ color, roughness });
-
-function box(name, size, position, color, interactive = false) {
-  const mesh = new THREE.Mesh(
-    new THREE.BoxGeometry(...size), material(color)
-  );
-  mesh.position.set(...position);
-  mesh.castShadow = true;
-  mesh.receiveShadow = true;
-  mesh.userData.name = name;
-  mesh.userData.interactive = interactive;
-  scene.add(mesh);
-  if (interactive) objects.push(mesh);
-  return mesh;
-}
-
-function cylinder(name, radiusTop, radiusBottom, height, position, color, interactive = false) {
-  const mesh = new THREE.Mesh(
-    new THREE.CylinderGeometry(radiusTop, radiusBottom, height, 24),
-    material(color)
-  );
-  mesh.position.set(...position);
-  mesh.castShadow = true;
-  mesh.userData.name = name;
-  mesh.userData.interactive = interactive;
-  scene.add(mesh);
-  if (interactive) objects.push(mesh);
-  return mesh;
-}
-
-// Room shell
-box('floor', [12, 0.2, 12], [0, -0.12, 0], 0x39312a);
-box('back wall', [12, 6, 0.2], [0, 2.8, -4], 0x51453b);
-box('left wall', [0.2, 6, 8], [-6, 2.8, 0], 0x302c29);
-box('right wall', [0.2, 6, 8], [6, 2.8, 0], 0x39312c);
-box('ceiling', [12, 0.2, 8], [0, 5.8, 0], 0x292522);
-
-// Rug
-const rug = box('rug', [5, 0.035, 3.1], [0, 0.005, 1.3], 0x6a3928);
-rug.material.roughness = 1;
-
-// Bed and mattress
-box('bed frame', [3.2, 0.42, 4], [-2.3, 0.28, -0.7], 0x33251e);
-box('mattress', [3.05, 0.28, 3.8], [-2.3, 0.61, -0.7], 0xb5a99a);
-box('pillow', [1.05, 0.18, 0.65], [-2.3, 0.83, -2.05], 0xe2d8ca);
-box('blanket', [3.08, 0.12, 2.1], [-2.3, 0.83, 0.15], 0x5c3528);
-
-// Desk and chair
-box('desk top', [2.8, 0.15, 1.2], [2.6, 1.55, -1.3], 0x6b4933);
-box('desk leg left', [0.12, 1.5, 0.12], [1.45, 0.8, -1.3], 0x29221e);
-box('desk leg right', [0.12, 1.5, 0.12], [3.75, 0.8, -1.3], 0x29221e);
-box('chair seat', [0.85, 0.16, 0.8], [2.6, 0.65, 0.1], 0x302b28);
-box('chair back', [0.85, 1, 0.15], [2.6, 1.15, 0.48], 0x302b28);
-
-// Lamp
-cylinder('lamp base', 0.3, 0.35, 0.12, [3.2, 1.7, -1.3], 0x242323);
-cylinder('lamp stem', 0.055, 0.055, 0.8, [3.2, 2.1, -1.3], 0x242323);
-const shade = cylinder('lamp shade', 0.38, 0.19, 0.45, [3.2, 2.65, -1.3], 0xd79b54, true);
-shade.userData.title = 'THE LAMP';
-shade.userData.text = 'A little light in a room full of memories. Click around to discover what this space holds.';
-
-// Memory board on the back wall
-box('memory board', [2.7, 1.8, 0.12], [0.2, 3.1, -3.82], 0x332820, true);
-const board = objects[objects.length - 1];
-board.userData.title = 'THE MEMORY BOARD';
-board.userData.text = 'Every picture holds a moment. Some moments make us, some break us, and some remind us how far we have come.';
-
-// Picture cards
-const cardColors = [0xc98243, 0xb9a48b, 0x6c7667, 0x7b5140];
-const cardPositions = [
-  [-0.6, 3.4, -3.73], [0.2, 3.4, -3.73],
-  [1.0, 3.4, -3.73], [-0.2, 2.8, -3.73],
-  [0.6, 2.8, -3.73]
-];
-cardPositions.forEach((p, i) => {
-  box('picture ' + i, [0.48, 0.48, 0.04], p, cardColors[i % cardColors.length]);
+    window.setTimeout(() => {
+      document.getElementById("panelTitle").textContent = destination.title;
+      document.getElementById("panelText").textContent = destination.text;
+      panel.classList.add("open");
+      status.classList.remove("visible");
+    }, 1250);
+  });
 });
 
-// Shelf and VHS tapes
-box('shelf', [3.5, 0.15, 0.6], [0.4, 1.2, -3.55], 0x65452e);
-
-const tapeColors = [0x171717, 0x9e4d2b, 0x444e43, 0xaaa08d];
-for (let i = 0; i < 4; i++) {
-  const tape = box(
-    'VHS tape ' + (i + 1),
-    [0.58, 0.34, 0.42],
-    [-0.8 + i * 0.8, 1.44, -3.5],
-    tapeColors[i],
-    true
-  );
-  tape.userData.title = ['MEMORY 001', 'MEMORY 002', 'MEMORY 003', 'MEMORY 004'][i];
-  tape.userData.text = [
-    'Some memories feel warm, even when they belong to the past. What would you replay?',
-    'Not every chapter was easy. That does not mean it was wasted.',
-    'Growth can be quiet. Sometimes moving forward is the biggest change of all.',
-    'Nothing stays the same. The moments pass, but what they teach us can stay.'
-  ][i];
-}
-
-// Plant
-cylinder('plant pot', 0.32, 0.25, 0.45, [4.8, 0.25, -2.5], 0x8b482b);
-for (let i = 0; i < 5; i++) {
-  const leaf = new THREE.Mesh(
-    new THREE.ConeGeometry(0.16, 0.9, 8),
-    material(0x52634a)
-  );
-  leaf.position.set(4.8 + Math.sin(i * 1.3) * 0.24, 0.9, -2.5 + Math.cos(i * 1.3) * 0.2);
-  leaf.rotation.z = Math.sin(i * 1.3) * 0.35;
-  leaf.castShadow = true;
-  scene.add(leaf);
-}
-
-// Wall art
-box('wall art frame', [1.2, 1.5, 0.12], [4.3, 3.4, -3.82], 0x201c19);
-box('wall art', [0.98, 1.28, 0.04], [4.3, 3.4, -3.73], 0xb86e40, true);
-const art = objects[objects.length - 1];
-art.userData.title = 'NOTHING STAYS THE SAME';
-art.userData.text = 'Life keeps moving. This room is a reminder that every version of you is part of the story.';
-
-// Ambient dust-like floating specks
-const speckGeometry = new THREE.BufferGeometry();
-const speckCount = 180;
-const speckPositions = new Float32Array(speckCount * 3);
-for (let i = 0; i < speckCount; i++) {
-  speckPositions[i * 3] = (Math.random() - 0.5) * 10;
-  speckPositions[i * 3 + 1] = Math.random() * 4.5;
-  speckPositions[i * 3 + 2] = (Math.random() - 0.5) * 7;
-}
-speckGeometry.setAttribute('position', new THREE.BufferAttribute(speckPositions, 3));
-const specks = new THREE.Points(
-  speckGeometry,
-  new THREE.PointsMaterial({ color: 0xe4b37c, size: 0.025, transparent: true, opacity: 0.55 })
-);
-scene.add(specks);
-
-// Interaction
-const raycaster = new THREE.Raycaster();
-const pointer = new THREE.Vector2();
-const message = document.getElementById('message');
-const messageTitle = document.getElementById('messageTitle');
-const messageText = document.getElementById('messageText');
-const hint = document.getElementById('hint');
-
-function showMessage(object) {
-  messageTitle.textContent = object.userData.title || object.userData.name || 'A MEMORY';
-  messageText.textContent = object.userData.text || 'A small piece of this room, holding space for a memory yet to be made.';
-  message.style.display = 'block';
-}
-
-document.getElementById('close').addEventListener('click', () => {
-  message.style.display = 'none';
+document.getElementById("panelButton").addEventListener("click", () => {
+  panel.classList.remove("open");
+  image.style.transform = "scale(1)";
+  image.style.filter = "brightness(1)";
 });
 
-renderer.domElement.addEventListener('pointermove', (event) => {
-  pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
-  pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
-  raycaster.setFromCamera(pointer, camera);
-  const hits = raycaster.intersectObjects(objects, false);
-  renderer.domElement.style.cursor = hits.length ? 'pointer' : 'default';
+image.addEventListener("error", () => {
+  document.getElementById("panelTitle").textContent = "IMAGE NOT FOUND";
+  document.getElementById("panelText").textContent =
+    "Check that the hero image is uploaded beside room.html and that its filename matches the image path in the code.";
+  panel.classList.add("open");
 });
 
-renderer.domElement.addEventListener('click', (event) => {
-  if (message.style.display === 'block') return;
-  pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
-  pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
-  raycaster.setFromCamera(pointer, camera);
-  const hits = raycaster.intersectObjects(objects, false);
-  if (hits.length) showMessage(hits[0].object);
+image.addEventListener("load", () => {
+  console.log("GoodnBadMemories room image loaded.");
 });
-
-// Slow atmospheric movement
-const clock = new THREE.Clock();
-function animate() {
-  requestAnimationFrame(animate);
-  const t = clock.getElapsedTime();
-  warmLight.intensity = 30 + Math.sin(t * 1.3) * 2;
-  specks.rotation.y = t * 0.008;
-  renderer.render(scene, camera);
-}
-animate();
-
-window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-});
-
-document.getElementById('loading').style.display = 'none';
 </script>
 </body>
 </html>
